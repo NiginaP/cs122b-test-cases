@@ -497,7 +497,7 @@ public class IdmTest
     public void sessionEmailAddressInvalidFormat_NoEmail()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
+        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("@uci.edu", session_id);
 
@@ -509,7 +509,7 @@ public class IdmTest
     public void sessionEmailAddressInvalidFormat_NoAt()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
+        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("heheheuci.edu", session_id);
 
@@ -521,7 +521,7 @@ public class IdmTest
     public void sessionEmailAddressInvalidFormat_NoDomain()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
+        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@.edu", session_id);
 
@@ -533,7 +533,7 @@ public class IdmTest
     public void sessionEmailAddressInvalidFormat_NoExtension()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
+        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@uci.", session_id);
 
@@ -546,7 +546,7 @@ public class IdmTest
     public void sessionEmailAddressInvalidLength_EmptyString()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_LENGTH;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
+        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("", session_id);
 
@@ -558,7 +558,7 @@ public class IdmTest
     public void sessionEmailAddressInvalidLength_Null()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_LENGTH;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
+        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession(null, session_id);
 
@@ -594,7 +594,7 @@ public class IdmTest
     public void sessionUserNotFound()
     {
         Result expectedResult = Result.USER_NOT_FOUND;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
+        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hahaha233@uci.edu", session_id);
 
@@ -607,7 +607,7 @@ public class IdmTest
     {
         Result expectedResult = Result.SESSION_ACTIVE;
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
+        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hahaha233@uci.edu", session_id);
 
@@ -620,7 +620,7 @@ public class IdmTest
     {
         Result expectedResult = Result.SESSION_EXPIRED;
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123124"; /* Len is 64 */
+        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123124";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hahaha234@uci.edu", session_id);
 
@@ -633,7 +633,7 @@ public class IdmTest
     {
         Result expectedResult = Result.SESSION_CLOSED;
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123125"; /* Len is 64 */
+        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123125";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hahaha235@uci.edu", session_id);
 
@@ -646,7 +646,7 @@ public class IdmTest
     {
         Result expectedResult = Result.SESSION_REVOKED;
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123126"; /* Len is 64 */
+        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123126";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hahaha236@uci.edu", session_id);
 
@@ -659,7 +659,7 @@ public class IdmTest
     {
         Result expectedResult = Result.SESSION_NOT_FOUND;
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123127"; /* Len is 64 */
+        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123127";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hahaha237@uci.edu", session_id);
 
