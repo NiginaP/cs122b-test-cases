@@ -606,12 +606,12 @@ public class IdmTest
     public void sessionActive()
     {
         Result expectedResult = Result.SESSION_ACTIVE;
-        SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("ActiveSession@uci.edu", SESSION_ACTIVE);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
-        assertEquals(expectedModel, response.getEntity());
+        assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
+        assertNotNull(response.getEntity().getSession_id());
     }
 
     @Test
@@ -619,7 +619,6 @@ public class IdmTest
     {
         Result expectedResult = Result.SESSION_EXPIRED;
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123124";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("ExpiredSession@uci.edu", SESSION_EXPIRED);
 
@@ -632,7 +631,6 @@ public class IdmTest
     {
         Result expectedResult = Result.SESSION_CLOSED;
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123125";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("ClosedSession@uci.edu", SESSION_CLOSED);
 
@@ -645,7 +643,6 @@ public class IdmTest
     {
         Result expectedResult = Result.SESSION_REVOKED;
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123126";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("RevokedSession@uci.edu", SESSION_REVOKED);
 
@@ -658,7 +655,6 @@ public class IdmTest
     {
         Result expectedResult = Result.SESSION_NOT_FOUND;
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123127";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("NotFoundSession@uci.edu", SESSION_NOTFOUND);
 
