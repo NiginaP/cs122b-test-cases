@@ -14,4 +14,10 @@ public class RegisterResponseModel extends ResponseModel
     {
         super(result);
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        return super.equals(o);
+    }
 }

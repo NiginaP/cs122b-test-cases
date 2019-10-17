@@ -13,7 +13,6 @@ public class LoginResponseModel extends ResponseModel
 
     public LoginResponseModel()
     {
-        super();
     }
 
     public LoginResponseModel(Result result, String session_id)
@@ -40,16 +39,14 @@ public class LoginResponseModel extends ResponseModel
     @Override
     public boolean equals(Object o)
     {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        if (!super.equals(o)) return false;
+
         LoginResponseModel that = (LoginResponseModel) o;
+
         return Objects.equals(session_id, that.session_id);
     }
 

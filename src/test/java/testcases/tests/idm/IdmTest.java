@@ -11,6 +11,8 @@ import static org.junit.Assert.*;
 
 public class IdmTest
 {
+    public static final int EXPECTED_SESSION_ID_LENGTH = 64;
+
     //*********************************************
     //
     //                Register Tests
@@ -24,6 +26,20 @@ public class IdmTest
         String password = "AAAbbb111222";
         char[] passwordArray = password.toCharArray();
 
+        ServiceResponse<RegisterResponseModel> response = IdmSocket.postRegister("hehehehe@uci.edu", passwordArray);
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedModel, response.getEntity());
+    }
+
+    @Test
+    public void registerEmailAlreadyInUse()
+    {
+        Result expectedResult = Result.EMAIL_ALREADY_IN_USE;
+        RegisterResponseModel expectedModel = new RegisterResponseModel(expectedResult);
+        String password = "AAAbbb111222";
+        char[] passwordArray = password.toCharArray();
+
         ServiceResponse<RegisterResponseModel> response = IdmSocket.postRegister("hehehe@uci.edu", passwordArray);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
@@ -33,7 +49,7 @@ public class IdmTest
     @Test
     public void registerPasswordNotMeetLengthRequirementTooShort()
     {
-        Result expectedResult = Result.PASSWORD_INVALID_LENGTH;
+        Result expectedResult = Result.PASSWORD_NOT_MEET_LENGTH_REQUIREMENTS;
         RegisterResponseModel expectedModel = new RegisterResponseModel(expectedResult);
         String password = "Aa1";
         char[] passwordArray = password.toCharArray();
@@ -47,7 +63,7 @@ public class IdmTest
     @Test
     public void registerPasswordNotMeetLengthRequirementTooLong()
     {
-        Result expectedResult = Result.PASSWORD_INVALID_LENGTH;
+        Result expectedResult = Result.PASSWORD_NOT_MEET_LENGTH_REQUIREMENTS;
         RegisterResponseModel expectedModel = new RegisterResponseModel(expectedResult);
         String password = "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1";
         char[] passwordArray = password.toCharArray();
@@ -248,19 +264,6 @@ public class IdmTest
         assertEquals(expectedModel, response.getEntity());
     }
 
-    @Test
-    public void registerEmailAlreadyInUse()
-    {
-        Result expectedResult = Result.EMAIL_ALREADY_IN_USE;
-        RegisterResponseModel expectedModel = new RegisterResponseModel(expectedResult);
-        String password = "AAAbbb111222";
-        char[] passwordArray = password.toCharArray();
-
-        ServiceResponse<RegisterResponseModel> response = IdmSocket.postRegister("hehehe@uci.edu", passwordArray);
-
-        assertEquals(expectedResult.getStatus(), response.getStatus());
-        assertEquals(expectedModel, response.getEntity());
-    }
 
     //*********************************************
     //
@@ -271,7 +274,6 @@ public class IdmTest
     public void loginSuccessfully()
     {
         Result expectedResult = Result.LOGGED_IN_SUCCESSFULLY;
-        int expectedSessionIDLength = 64;
         String password = "AAAbbb111222";
         char[] passwordArray = password.toCharArray();
 
@@ -279,15 +281,12 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void loginPasswordInvalidLength_EmptyString()
     {
         Result expectedResult = Result.PASSWORD_INVALID_LENGTH;
-        int expectedSessionIDLength = 64;
         String password = "";
         char[] passwordArray = password.toCharArray();
 
@@ -295,29 +294,23 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void loginPasswordInvalidLength_Null()
     {
         Result expectedResult = Result.PASSWORD_INVALID_LENGTH;
-        int expectedSessionIDLength = 64;
 
         ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("hehehe@uci.edu", null);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void loginEmailAddressInvalidLength_EmptyString()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_LENGTH;
-        int expectedSessionIDLength = 64;
         String password = "AAAaaa111222";
         char[] passwordArray = password.toCharArray();
 
@@ -325,15 +318,12 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void loginEmailAddressInvalidLength_Null()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_LENGTH;
-        int expectedSessionIDLength = 64;
         String password = "AAAaaa111222";
         char[] passwordArray = password.toCharArray();
 
@@ -341,15 +331,12 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void loginEmailAddressInvalidFormat_NoEmail()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        int expectedSessionIDLength = 64;
         String password = "AAAaaa111222";
         char[] passwordArray = password.toCharArray();
 
@@ -357,15 +344,12 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void loginEmailAddressInvalidFormat_NoAt()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        int expectedSessionIDLength = 64;
         String password = "AAAaaa111222";
         char[] passwordArray = password.toCharArray();
 
@@ -373,15 +357,12 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void loginEmailAddressInvalidFormat_NoDomain()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        int expectedSessionIDLength = 64;
         String password = "AAAaaa111222";
         char[] passwordArray = password.toCharArray();
 
@@ -389,15 +370,12 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void loginEmailAddressInvalidFormat_NoExtension()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        int expectedSessionIDLength = 64;
         String password = "AAAaaa111222";
         char[] passwordArray = password.toCharArray();
 
@@ -405,8 +383,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
@@ -418,7 +394,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
         assertEquals(null, response.getEntity().getSession_id());
     }
 
@@ -475,119 +450,95 @@ public class IdmTest
     public void tokenLengthTooShort()
     {
         Result expectedResult = Result.TOKEN_INVALID_LENGTH;
-        int expectedSessionIDLength = 64;
         String session_id = "bbbb";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("peter@uci.edu", session_id);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void tokenLengthTooLong()
     {
         Result expectedResult = Result.TOKEN_INVALID_LENGTH;
-        int expectedSessionIDLength = 64;
         String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasdassssssssssjjjjjjjjjjjubbbbbbbbbb1111111111890jdhsurnekw";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("peter@uci.edu", session_id);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void sessionTokenInvalidLength_EmptyString()
     {
         Result expectedResult = Result.TOKEN_INVALID_LENGTH;
-        int expectedSessionIDLength = 64;
         String session_id = "";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@uci.edu", session_id);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void sessionTokenInvalidLength_Null()
     {
         Result expectedResult = Result.TOKEN_INVALID_LENGTH;
-        int expectedSessionIDLength = 64;
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@uci.edu", null);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void sessionEmailAddressInvalidFormat_NoEmail()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        int expectedSessionIDLength = 64;
         String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("@uci.edu", session_id);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void sessionEmailAddressInvalidFormat_NoAt()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        int expectedSessionIDLength = 64;
         String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("heheheuci.edu", session_id);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void sessionEmailAddressInvalidFormat_NoDomain()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        int expectedSessionIDLength = 64;
         String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@.edu", session_id);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void sessionEmailAddressInvalidFormat_NoExtension()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        int expectedSessionIDLength = 64;
         String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@uci.", session_id);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
 
@@ -595,30 +546,24 @@ public class IdmTest
     public void sessionEmailAddressInvalidLength_EmptyString()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_LENGTH;
-        int expectedSessionIDLength = 64;
         String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("", session_id);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
     public void sessionEmailAddressInvalidLength_Null()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_LENGTH;
-        int expectedSessionIDLength = 64;
         String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123"; /* Len is 64 */
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession(null, session_id);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
-        assertEquals(expectedSessionIDLength, response.getEntity().getSession_id().length());
     }
 
     @Test
@@ -630,7 +575,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
         assertEquals(null, response.getEntity().getSession_id());
     }
 
@@ -656,7 +600,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
     @Test
@@ -722,7 +665,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
 
@@ -744,7 +686,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
     @Test
@@ -757,7 +698,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
     @Test
@@ -770,7 +710,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
     @Test
@@ -783,7 +722,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
     @Test
@@ -796,7 +734,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
     @Test
@@ -809,7 +746,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
 
@@ -823,7 +759,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
     @Test
@@ -836,7 +771,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
     @Test
@@ -847,7 +781,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
     @Test
@@ -872,7 +805,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
     @Test
@@ -885,7 +817,6 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 
     @Test
@@ -898,6 +829,5 @@ public class IdmTest
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
-        assertEquals(expectedResult.getMessage(), response.getEntity().getMessage());
     }
 }
