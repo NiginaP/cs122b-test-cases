@@ -1,4 +1,4 @@
-package testcases.model.hw2;
+package testcases.model.hw2.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

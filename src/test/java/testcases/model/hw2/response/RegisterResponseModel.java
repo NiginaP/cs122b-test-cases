@@ -1,4 +1,4 @@
-package testcases.model.hw2;
+package testcases.model.hw2.response;
 
 import edu.uci.ics.cs122b.test.common.Result;
 import edu.uci.ics.cs122b.test.base.ResponseModel;

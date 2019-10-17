@@ -1,10 +1,9 @@
-package testcases.tests;
+package testcases.tests.basic;
 
 import edu.uci.ics.cs122b.test.common.Result;
 import edu.uci.ics.cs122b.test.common.Json;
 import testcases.socket.BasicSocket;
-import testcases.model.hw1.response.MathResponseModel;
-import testcases.model.hw1.response.ReverseResponseModel;
+import testcases.model.hw1.response.*;
 import edu.uci.ics.cs122b.test.util.ServiceResponse;
 import org.junit.Test;
 
@@ -12,7 +11,11 @@ import static org.junit.Assert.*;
 
 public class BasicTest
 {
-    /* Hello Tests */
+    //*********************************************
+    //
+    //                Hello Test
+    //
+    //*********************************************
     @Test
     public void hello()
     {
@@ -22,7 +25,15 @@ public class BasicTest
         assertEquals(response.getStatus(), expectedStatus);
     }
 
-    /* Reverse Tests */
+
+
+
+
+    //*********************************************
+    //
+    //                Reverse Tests
+    //
+    //*********************************************
     @Test
     public void reverseStringLowerCase()
     {
@@ -131,8 +142,15 @@ public class BasicTest
         assertEquals(expectedModel, response.getEntity());
     }
 
-    /* Math Tests */
 
+
+
+
+    //*********************************************
+    //
+    //                Math Tests
+    //
+    //*********************************************
     @Test
     public void mathMapping()
     {
