@@ -14,7 +14,6 @@ public class SessionResponseModel extends ResponseModel
 
     public SessionResponseModel()
     {
-        super();
     }
 
     public SessionResponseModel(Result result, String session_id)

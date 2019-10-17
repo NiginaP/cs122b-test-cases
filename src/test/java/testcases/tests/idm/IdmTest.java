@@ -12,6 +12,13 @@ import static org.junit.Assert.*;
 public class IdmTest
 {
     public static final int EXPECTED_SESSION_ID_LENGTH = 64;
+    public static final String USER_SESSION     = "3c441bdac83d2e5027c6bf237121ddcebf4f6046a8db136d8026048c0b0cdabf2ac6301db8d09172bb100211f9b742f1245b921630e6fa9fa63d806f99177cbc";
+
+    public static final String SESSION_ACTIVE   = "15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2cc";
+    public static final String SESSION_EXPIRED  = "cdf061488306a2f2e3d97260564eaa3be5a17defc514a690a9b41b4fa7335757b66c4da6e4bdd6570cc77033dd887ab62ca53cea452247461dedca35737c126f";
+    public static final String SESSION_CLOSED   = "8a5c59cceac13d6d8a4ea43e0178aedf9dbec9cb86a0d7b3b4bf7fd3d0780b501b801bab816a7edc45cc06cb0f57b6a933eace485350db9e7a4f4b5d8eda2ffb";
+    public static final String SESSION_REVOKED  = "15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2c4";
+    public static final String SESSION_NOTFOUND = "fe6fbf756c921e93bb11ec2ec4b55e5a81425addaf060554fd94dd4675fd7a8df01e27cd9479042142eaac6129aad8fe98083100de3fddfd7c052f32b0c7295a";
 
     //*********************************************
     //
@@ -450,7 +457,7 @@ public class IdmTest
     public void tokenLengthTooShort()
     {
         Result expectedResult = Result.TOKEN_INVALID_LENGTH;
-        String session_id = "bbbb";
+        String session_id = "TOOSHORT";
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("peter@uci.edu", session_id);
 
@@ -462,7 +469,7 @@ public class IdmTest
     public void tokenLengthTooLong()
     {
         Result expectedResult = Result.TOKEN_INVALID_LENGTH;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasdassssssssssjjjjjjjjjjjubbbbbbbbbb1111111111890jdhsurnekw";
+        String session_id = "TOOLONG" + USER_SESSION;
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("peter@uci.edu", session_id);
 
@@ -497,9 +504,8 @@ public class IdmTest
     public void sessionEmailAddressInvalidFormat_NoEmail()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("@uci.edu", session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("@uci.edu", USER_SESSION);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -509,9 +515,8 @@ public class IdmTest
     public void sessionEmailAddressInvalidFormat_NoAt()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("heheheuci.edu", session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("heheheuci.edu", USER_SESSION);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -521,9 +526,8 @@ public class IdmTest
     public void sessionEmailAddressInvalidFormat_NoDomain()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@.edu", session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@.edu", USER_SESSION);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -533,9 +537,8 @@ public class IdmTest
     public void sessionEmailAddressInvalidFormat_NoExtension()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@uci.", session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@uci.", USER_SESSION);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -546,9 +549,8 @@ public class IdmTest
     public void sessionEmailAddressInvalidLength_EmptyString()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_LENGTH;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("", session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("", USER_SESSION);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -558,9 +560,8 @@ public class IdmTest
     public void sessionEmailAddressInvalidLength_Null()
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_LENGTH;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession(null, session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession(null, USER_SESSION);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -594,9 +595,8 @@ public class IdmTest
     public void sessionUserNotFound()
     {
         Result expectedResult = Result.USER_NOT_FOUND;
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hahaha233@uci.edu", session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("NotRealUser@uci.edu", USER_SESSION);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -607,9 +607,8 @@ public class IdmTest
     {
         Result expectedResult = Result.SESSION_ACTIVE;
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
-        String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hahaha233@uci.edu", session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("ActiveSession@uci.edu", SESSION_ACTIVE);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedModel, response.getEntity());
@@ -622,7 +621,7 @@ public class IdmTest
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
         String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123124";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hahaha234@uci.edu", session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("ExpiredSession@uci.edu", SESSION_EXPIRED);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedModel, response.getEntity());
@@ -635,7 +634,7 @@ public class IdmTest
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
         String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123125";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hahaha235@uci.edu", session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("ClosedSession@uci.edu", SESSION_CLOSED);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedModel, response.getEntity());
@@ -648,7 +647,7 @@ public class IdmTest
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
         String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123126";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hahaha236@uci.edu", session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("RevokedSession@uci.edu", SESSION_REVOKED);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedModel, response.getEntity());
@@ -661,7 +660,7 @@ public class IdmTest
         SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
         String session_id = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123127";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hahaha237@uci.edu", session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("NotFoundSession@uci.edu", SESSION_NOTFOUND);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -801,33 +800,145 @@ public class IdmTest
         Result expectedResult = Result.USER_NOT_FOUND;
         int plevel = 5;
 
-        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege("hahaha233@uci.edu", plevel);
+        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege("NotRealUser@uci.edu", plevel);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
     }
 
     @Test
-    public void privilegeUserHasSufficient()
+    public void privilegeUserLevel()
     {
-        Result expectedResult = Result.SUFFICIENT_PRIVILEGE;
+        String userEmail = "UserLevel@uci.edu";
+        Result sufficientResult = Result.SUFFICIENT_PRIVILEGE;
+        Result insufficientResult = Result.INSUFFICIENT_PRIVILEGE;
         int plevel = 5;
 
-        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege("hahaha233@uci.edu", plevel);
+        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege(userEmail, plevel);
 
-        assertEquals(expectedResult.getStatus(), response.getStatus());
-        assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
+        assertEquals(sufficientResult.getStatus(), response.getStatus());
+        assertEquals(sufficientResult.getResultCode(), sufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(userEmail, 4);
+
+        assertEquals(insufficientResult.getStatus(), response.getStatus());
+        assertEquals(insufficientResult.getResultCode(), insufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(userEmail, 3);
+
+        assertEquals(insufficientResult.getStatus(), response.getStatus());
+        assertEquals(insufficientResult.getResultCode(), insufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(userEmail, 2);
+
+        assertEquals(insufficientResult.getStatus(), response.getStatus());
+        assertEquals(insufficientResult.getResultCode(), insufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(userEmail, 1);
+
+        assertEquals(insufficientResult.getStatus(), response.getStatus());
+        assertEquals(insufficientResult.getResultCode(), insufficientResult.getResultCode());
     }
 
     @Test
-    public void privilegeUserDoesNotHaveSufficient()
+    public void privilegeServiceLevel()
     {
-        Result expectedResult = Result.INSUFFICIENT_PRIVILEGE;
-        int plevel = 1;
+        String serviceEmail = "ServiceLevel@uci.edu";
+        Result sufficientResult = Result.SUFFICIENT_PRIVILEGE;
+        Result insufficientResult = Result.INSUFFICIENT_PRIVILEGE;
+        int plevel = 4;
 
-        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege("hahaha233@uci.edu", plevel);
+        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege(serviceEmail, plevel);
 
-        assertEquals(expectedResult.getStatus(), response.getStatus());
-        assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
+        assertEquals(sufficientResult.getStatus(), response.getStatus());
+        assertEquals(sufficientResult.getResultCode(), sufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(serviceEmail, 4);
+
+        assertEquals(sufficientResult.getStatus(), response.getStatus());
+        assertEquals(sufficientResult.getResultCode(), sufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(serviceEmail, 3);
+
+        assertEquals(insufficientResult.getStatus(), response.getStatus());
+        assertEquals(insufficientResult.getResultCode(), insufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(serviceEmail, 2);
+
+        assertEquals(insufficientResult.getStatus(), response.getStatus());
+        assertEquals(insufficientResult.getResultCode(), insufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(serviceEmail, 1);
+
+        assertEquals(insufficientResult.getStatus(), response.getStatus());
+        assertEquals(insufficientResult.getResultCode(), insufficientResult.getResultCode());
+    }
+
+    @Test
+    public void privilegeEmployeeLevel()
+    {
+        String employeeEmail = "EmployeeLevel@uci.edu";
+        Result sufficientResult = Result.SUFFICIENT_PRIVILEGE;
+        Result insufficientResult = Result.INSUFFICIENT_PRIVILEGE;
+        int plevel = 3;
+
+        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege(employeeEmail, plevel);
+
+        assertEquals(sufficientResult.getStatus(), response.getStatus());
+        assertEquals(sufficientResult.getResultCode(), sufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(employeeEmail, 4);
+
+        assertEquals(sufficientResult.getStatus(), response.getStatus());
+        assertEquals(sufficientResult.getResultCode(), sufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(employeeEmail, 3);
+
+        assertEquals(sufficientResult.getStatus(), response.getStatus());
+        assertEquals(sufficientResult.getResultCode(), sufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(employeeEmail, 2);
+
+        assertEquals(insufficientResult.getStatus(), response.getStatus());
+        assertEquals(insufficientResult.getResultCode(), insufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(employeeEmail, 1);
+
+        assertEquals(insufficientResult.getStatus(), response.getStatus());
+        assertEquals(insufficientResult.getResultCode(), insufficientResult.getResultCode());
+    }
+
+    @Test
+    public void privilegeAdminLevel()
+    {
+        String adminEmail = "AdminLevel@uci.edu";
+        Result sufficientResult = Result.SUFFICIENT_PRIVILEGE;
+        Result insufficientResult = Result.INSUFFICIENT_PRIVILEGE;
+        int plevel = 2;
+
+        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege(adminEmail, plevel);
+
+        assertEquals(sufficientResult.getStatus(), response.getStatus());
+        assertEquals(sufficientResult.getResultCode(), sufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(adminEmail, 4);
+
+        assertEquals(sufficientResult.getStatus(), response.getStatus());
+        assertEquals(sufficientResult.getResultCode(), sufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(adminEmail, 3);
+
+        assertEquals(sufficientResult.getStatus(), response.getStatus());
+        assertEquals(sufficientResult.getResultCode(), sufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(adminEmail, 2);
+
+        assertEquals(sufficientResult.getStatus(), response.getStatus());
+        assertEquals(sufficientResult.getResultCode(), sufficientResult.getResultCode());
+
+        response = IdmSocket.postPrivilege(adminEmail, 1);
+
+        assertEquals(insufficientResult.getStatus(), response.getStatus());
+        assertEquals(insufficientResult.getResultCode(), insufficientResult.getResultCode());
     }
 }

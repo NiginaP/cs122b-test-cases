@@ -29,4 +29,20 @@ VALUES
     
 INSERT INTO user (email, status, plevel, salt, pword)
 VALUES
-	('hehehe@uci.edu', 1, 5, 'f2a6f4e7', '4a7a582e436fa93a38f77fdf6e2c0b404bcc720ee5adfda8b4624dd33dbfae97c2e9e58ade9786cb612bb9363a89094ba92325e8357638ce35466adff14fb40a');
+	('hehehe@uci.edu', 1, 5, 'f2a6f4e7', '4a7a582e436fa93a38f77fdf6e2c0b404bcc720ee5adfda8b4624dd33dbfae97c2e9e58ade9786cb612bb9363a89094ba92325e8357638ce35466adff14fb40a'),
+	('ActiveSession@uci.edu', 1, 5, 'f2a6f4e7', '4a7a582e436fa93a38f77fdf6e2c0b404bcc720ee5adfda8b4624dd33dbfae97c2e9e58ade9786cb612bb9363a89094ba92325e8357638ce35466adff14fb40a'),
+	('ExpiredSession@uci.edu', 1, 5, 'f2a6f4e7', '4a7a582e436fa93a38f77fdf6e2c0b404bcc720ee5adfda8b4624dd33dbfae97c2e9e58ade9786cb612bb9363a89094ba92325e8357638ce35466adff14fb40a'),
+	('ClosedSession@uci.edu', 1, 5, 'f2a6f4e7', '4a7a582e436fa93a38f77fdf6e2c0b404bcc720ee5adfda8b4624dd33dbfae97c2e9e58ade9786cb612bb9363a89094ba92325e8357638ce35466adff14fb40a'),
+	('RevokedSession@uci.edu', 1, 5, 'f2a6f4e7', '4a7a582e436fa93a38f77fdf6e2c0b404bcc720ee5adfda8b4624dd33dbfae97c2e9e58ade9786cb612bb9363a89094ba92325e8357638ce35466adff14fb40a'),
+	('NotFoundSession@uci.edu', 1, 5, 'f2a6f4e7', '4a7a582e436fa93a38f77fdf6e2c0b404bcc720ee5adfda8b4624dd33dbfae97c2e9e58ade9786cb612bb9363a89094ba92325e8357638ce35466adff14fb40a'),
+	('UserLevel@uci.edu', 1, 5, 'f2a6f4e7', '4a7a582e436fa93a38f77fdf6e2c0b404bcc720ee5adfda8b4624dd33dbfae97c2e9e58ade9786cb612bb9363a89094ba92325e8357638ce35466adff14fb40a'),
+	('ServiceLevel@uci.edu', 1, 4, 'f2a6f4e7', '4a7a582e436fa93a38f77fdf6e2c0b404bcc720ee5adfda8b4624dd33dbfae97c2e9e58ade9786cb612bb9363a89094ba92325e8357638ce35466adff14fb40a'),
+	('EmployeeLevel@uci.edu', 1, 3, 'f2a6f4e7', '4a7a582e436fa93a38f77fdf6e2c0b404bcc720ee5adfda8b4624dd33dbfae97c2e9e58ade9786cb612bb9363a89094ba92325e8357638ce35466adff14fb40a'),
+	('AdminLevel@uci.edu', 1, 2, 'f2a6f4e7', '4a7a582e436fa93a38f77fdf6e2c0b404bcc720ee5adfda8b4624dd33dbfae97c2e9e58ade9786cb612bb9363a89094ba92325e8357638ce35466adff14fb40a');
+    
+INSERT INTO session (session_id, email, status, time_created, last_used, expr_time)
+VALUES 
+('15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2cc','ActiveSession@uci.edu',1, CURRENT_TIME(), CURRENT_TIME(), CURRENT_TIME()),
+('cdf061488306a2f2e3d97260564eaa3be5a17defc514a690a9b41b4fa7335757b66c4da6e4bdd6570cc77033dd887ab62ca53cea452247461dedca35737c126f','ExpiredSession@uci.edu',3, CURRENT_TIME(), CURRENT_TIME(), CURRENT_TIME()),
+('8a5c59cceac13d6d8a4ea43e0178aedf9dbec9cb86a0d7b3b4bf7fd3d0780b501b801bab816a7edc45cc06cb0f57b6a933eace485350db9e7a4f4b5d8eda2ffb','ClosedSession@uci.edu',2, CURRENT_TIME(), CURRENT_TIME(), CURRENT_TIME()),
+('15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2c4','RevokedSession@uci.edu',4, CURRENT_TIME(), CURRENT_TIME(), CURRENT_TIME());
