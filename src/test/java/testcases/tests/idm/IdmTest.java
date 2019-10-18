@@ -18,7 +18,7 @@ public class IdmTest
     public static final String SESSION_EXPIRED  = "cdf061488306a2f2e3d97260564eaa3be5a17defc514a690a9b41b4fa7335757b66c4da6e4bdd6570cc77033dd887ab62ca53cea452247461dedca35737c126f";
     public static final String SESSION_CLOSED   = "8a5c59cceac13d6d8a4ea43e0178aedf9dbec9cb86a0d7b3b4bf7fd3d0780b501b801bab816a7edc45cc06cb0f57b6a933eace485350db9e7a4f4b5d8eda2ffb";
     public static final String SESSION_REVOKED  = "15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2c4";
-    public static final String SESSION_NOTFOUND = "fe6fbf756c921e93bb11ec2ec4b55e5a81425addaf060554fd94dd4675fd7a8df01e27cd9479042142eaac6129aad8fe98083100de3fddfd7c052f32b0c7295a";
+    public static final String SESSION_NOTFOUND = "ef6fbf756c921e93bb11ec2ec4b55e5a81425addaf060554fd94dd4675fd7a8df01e27cd9479042142eaac6129aad8fe98083100de3fddfd7c052f32b0c7295a";
 
     //*********************************************
     //
@@ -33,7 +33,7 @@ public class IdmTest
         String password = "AAAbbb111222";
         char[] passwordArray = password.toCharArray();
 
-        ServiceResponse<RegisterResponseModel> response = IdmSocket.postRegister("hehehehe@uci.edu", passwordArray);
+        ServiceResponse<RegisterResponseModel> response = IdmSocket.postRegister("RegisterSuccess@uci.edu", passwordArray);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedModel, response.getEntity());
@@ -47,7 +47,7 @@ public class IdmTest
         String password = "AAAbbb111222";
         char[] passwordArray = password.toCharArray();
 
-        ServiceResponse<RegisterResponseModel> response = IdmSocket.postRegister("hehehe@uci.edu", passwordArray);
+        ServiceResponse<RegisterResponseModel> response = IdmSocket.postRegister("AlreadyInUse@uci.edu", passwordArray);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedModel, response.getEntity());
@@ -284,7 +284,7 @@ public class IdmTest
         String password = "AAAbbb111222";
         char[] passwordArray = password.toCharArray();
 
-        ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("hehehe@uci.edu", passwordArray);
+        ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("AlreadyInUse@uci.edu", passwordArray);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -297,7 +297,7 @@ public class IdmTest
         String password = "";
         char[] passwordArray = password.toCharArray();
 
-        ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("hehehe@uci.edu", passwordArray);
+        ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("AlreadyInUse@uci.edu", passwordArray);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -308,7 +308,7 @@ public class IdmTest
     {
         Result expectedResult = Result.PASSWORD_INVALID_LENGTH;
 
-        ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("hehehe@uci.edu", null);
+        ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("AlreadyInUse@uci.edu", null);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -386,7 +386,7 @@ public class IdmTest
         String password = "AAAaaa111222";
         char[] passwordArray = password.toCharArray();
 
-        ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("hehehe@uci.", passwordArray);
+        ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("peter@uci.", passwordArray);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -424,7 +424,7 @@ public class IdmTest
         String password = "BBBbbb333444";
         char[] passwordArray = password.toCharArray();
 
-        ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("hehehe@uci.edu", passwordArray);
+        ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("AlreadyInUse@uci.edu", passwordArray);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedModel, response.getEntity());
@@ -438,7 +438,7 @@ public class IdmTest
         String password = "AAAbbb111222";
         char[] passwordArray = password.toCharArray();
 
-        ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("hahaha233@uci.edu", passwordArray);
+        ServiceResponse<LoginResponseModel> response = IdmSocket.postLogin("LoginDoesNotExist@uci.edu", passwordArray);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedModel, response.getEntity());
@@ -483,7 +483,7 @@ public class IdmTest
         Result expectedResult = Result.TOKEN_INVALID_LENGTH;
         String session_id = "";
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@uci.edu", session_id);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("peter@uci.edu", session_id);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -494,7 +494,7 @@ public class IdmTest
     {
         Result expectedResult = Result.TOKEN_INVALID_LENGTH;
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@uci.edu", null);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("peter@uci.edu", null);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -516,7 +516,7 @@ public class IdmTest
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("heheheuci.edu", USER_SESSION);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("peteruci.edu", USER_SESSION);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -527,7 +527,7 @@ public class IdmTest
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@.edu", USER_SESSION);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("peter@.edu", USER_SESSION);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -538,7 +538,7 @@ public class IdmTest
     {
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
 
-        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("hehehe@uci.", USER_SESSION);
+        ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("peter@uci.", USER_SESSION);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -654,7 +654,6 @@ public class IdmTest
     public void sessionNotFound()
     {
         Result expectedResult = Result.SESSION_NOT_FOUND;
-        SessionResponseModel expectedModel = new SessionResponseModel(expectedResult);
 
         ServiceResponse<SessionResponseModel> response = IdmSocket.postSession("NotFoundSession@uci.edu", SESSION_NOTFOUND);
 
@@ -713,7 +712,7 @@ public class IdmTest
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
         int plevel = 5;
 
-        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege("heheheuci.edu", plevel);
+        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege("peteruci.edu", plevel);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -725,7 +724,7 @@ public class IdmTest
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
         int plevel = 5;
 
-        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege("hehehe@.edu", plevel);
+        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege("peter@.edu", plevel);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
@@ -737,7 +736,7 @@ public class IdmTest
         Result expectedResult = Result.EMAIL_ADDRESS_INVALID_FORMAT;
         int plevel = 5;
 
-        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege("hehehe@uci.", plevel);
+        ServiceResponse<PrivilegeResponseModel> response = IdmSocket.postPrivilege("peter@uci.", plevel);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResult.getResultCode(), response.getEntity().getResultCode());
