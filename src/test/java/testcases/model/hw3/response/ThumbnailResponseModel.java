@@ -5,14 +5,28 @@ import edu.uci.ics.cs122b.test.base.ResponseModel;
 import edu.uci.ics.cs122b.test.common.Result;
 import testcases.model.hw3.submodels.ThumbnailModel;
 
+import java.util.Objects;
+
 public class ThumbnailResponseModel extends ResponseModel {
     @JsonProperty("thumbnails")
     ThumbnailModel[] thumbnails;
+
+    public ThumbnailResponseModel()
+    {
+
+    }
+
     public ThumbnailResponseModel(Result result)
     {
         super(result);
-    }
 
+    }
+    public ThumbnailResponseModel(Result result, ThumbnailModel[] thumbnails)
+    {
+        super(result);
+        this.thumbnails = thumbnails;
+
+    }
     public ThumbnailModel[] getThumbnails() {
         return thumbnails;
     }
@@ -28,7 +42,10 @@ public class ThumbnailResponseModel extends ResponseModel {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        if (!super.equals(o)) return false;
+        if (!super.equals(o))
+        {
+            return false;
+        }
 
         ThumbnailResponseModel that = (ThumbnailResponseModel) o;
 
@@ -47,4 +64,10 @@ public class ThumbnailResponseModel extends ResponseModel {
             return true;
         }
     }
+
+    public int hashCode()
+    {
+        return Objects.hash(super.hashCode(), thumbnails);
+    }
+
 }

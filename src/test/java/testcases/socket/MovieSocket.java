@@ -18,7 +18,13 @@ public class MovieSocket {
 
     private final static URI FULL_URI;
 
+    private final static String MOVIES_SEARCH_EP = "/search";
+    private final static String BROWSE_PHRASE_EP = "/browse/{phrase}";
+    private final static String GET_MOVIE_EP = "/get/{movie_id}";
     private final static String THUMBNAIL_EP = "/thumbnail";
+    private final static String PEOPLE_EP = "/people";
+    private final static String PEOPLE_SEARCH_EP = "/people/search";
+    private final static String GET_PEOPLE_EP = "/people/get/{person_id}";
 
 
 
@@ -41,6 +47,8 @@ public class MovieSocket {
 
         ServiceSocket serviceSocket = SOCKET_FACTORY.createSocket(THUMBNAIL_EP);
 
-        return serviceSocket.get(ThumbnailResponseModel.class);
+        return serviceSocket.post(ThumbnailResponseModel.class, requestModel);
     }
+
+
 }
