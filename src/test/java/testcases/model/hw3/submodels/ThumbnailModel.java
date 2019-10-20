@@ -28,32 +28,31 @@ public class ThumbnailModel {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        if (!super.equals(o)) return false;
-
         ThumbnailModel that = (ThumbnailModel) o;
         if (this.movie_id.equals(that.movie_id)) {
             //we good
-        } else
+        } else {
             return false;
-
+        }
         if (this.title.equals(that.title)) {
             //we good
-        } else
+        } else {
             return false;
+        }
         if (this.backdrop_path.equals(that.backdrop_path))
         {
             //we good
-        } else
+        } else {
             return false;
-
+        }
         //poster path not required, so if it's not nul then we can check. otherwise if it is null and the other one is not null then we hae an issue
         if (this.poster_path != null && this.poster_path.equals(that.poster_path))
         {
+
             // we good
 
         } else
         {
-
             return false;
         }
 

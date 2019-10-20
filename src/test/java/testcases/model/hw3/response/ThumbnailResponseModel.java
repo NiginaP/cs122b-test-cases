@@ -44,6 +44,7 @@ public class ThumbnailResponseModel extends ResponseModel {
 
         if (!super.equals(o))
         {
+
             return false;
         }
 
