@@ -5,10 +5,15 @@ import edu.uci.ics.cs122b.test.util.ServiceSocket;
 import edu.uci.ics.cs122b.test.util.ServiceSocketFactory;
 import testcases.model.hw2.request.LoginRequestModel;
 import testcases.model.hw2.response.LoginResponseModel;
+import testcases.model.hw3.request.BrowseKeywordRequestModel;
 import testcases.model.hw3.request.ThumbnailRequestModel;
+import testcases.model.hw3.response.BrowseKeywordResponseModel;
 import testcases.model.hw3.response.ThumbnailResponseModel;
 
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
 import java.net.URI;
+import java.util.Hashtable;
 
 public class MovieSocket {
     private final static String SCHEME;
@@ -19,12 +24,12 @@ public class MovieSocket {
     private final static URI FULL_URI;
 
     private final static String MOVIES_SEARCH_EP = "/search";
-    private final static String BROWSE_PHRASE_EP = "/browse/{phrase}";
-    private final static String GET_MOVIE_EP = "/get/{movie_id}";
+    private final static String BROWSE_PHRASE_EP = "/browse/";
+    private final static String GET_MOVIE_EP = "/get/";
     private final static String THUMBNAIL_EP = "/thumbnail";
     private final static String PEOPLE_EP = "/people";
     private final static String PEOPLE_SEARCH_EP = "/people/search";
-    private final static String GET_PEOPLE_EP = "/people/get/{person_id}";
+    private final static String GET_PEOPLE_EP = "/people/get/";
 
 
 
@@ -50,5 +55,15 @@ public class MovieSocket {
         return serviceSocket.post(ThumbnailResponseModel.class, requestModel);
     }
 
+    public static ServiceResponse<BrowseKeywordResponseModel> getBrowseByKeyword(MultivaluedHashMap<String, Object> headers, MultivaluedHashMap<String, Object> query, String keywords)
+    {
+        BrowseKeywordRequestModel requestModel = new BrowseKeywordRequestModel();
+
+        ServiceSocket serviceSocket = SOCKET_FACTORY.createSocket(BROWSE_PHRASE_EP + keywords);
+
+        serviceSocket = serviceSocket.headers(headers);
+        serviceSocket = serviceSocket.queries(query);
+        return serviceSocket.get(BrowseKeywordResponseModel.class);
+    }
 
 }

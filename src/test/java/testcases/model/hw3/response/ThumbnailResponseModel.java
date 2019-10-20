@@ -44,12 +44,14 @@ public class ThumbnailResponseModel extends ResponseModel {
 
         if (!super.equals(o))
         {
-
             return false;
         }
 
         ThumbnailResponseModel that = (ThumbnailResponseModel) o;
-
+        if (this.thumbnails == null)
+        {
+            return that.thumbnails == null;
+        }
         //Thumbnail response arrays were not equal.
         if (this.thumbnails.length != that.thumbnails.length)
             return false;

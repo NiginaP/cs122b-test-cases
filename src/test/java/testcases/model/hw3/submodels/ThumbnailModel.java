@@ -2,6 +2,8 @@ package testcases.model.hw3.submodels;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 public class ThumbnailModel {
 
     @JsonProperty("movie_id")
@@ -29,32 +31,20 @@ public class ThumbnailModel {
         if (o == null || getClass() != o.getClass()) return false;
 
         ThumbnailModel that = (ThumbnailModel) o;
-        if (this.movie_id.equals(that.movie_id)) {
-            //we good
-        } else {
+        if (!(Objects.equals(this.movie_id, that.movie_id)))
             return false;
-        }
-        if (this.title.equals(that.title)) {
-            //we good
-        } else {
+
+        if (!Objects.equals(this.title, that.title))
             return false;
-        }
-        if (this.backdrop_path.equals(that.backdrop_path))
-        {
-            //we good
-        } else {
+
+        if (!Objects.equals(this.backdrop_path, that.backdrop_path))
             return false;
-        }
+
         //poster path not required, so if it's not nul then we can check. otherwise if it is null and the other one is not null then we hae an issue
-        if (this.poster_path != null && this.poster_path.equals(that.poster_path))
-        {
-
-            // we good
-
-        } else
-        {
+        if (!Objects.equals(this.poster_path, that.poster_path))
             return false;
-        }
+        // we good
+
 
 
         //All parameters were equal. We good.
