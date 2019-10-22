@@ -1,5 +1,6 @@
 package testcases.model.hw3.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.uci.ics.cs122b.test.base.ResponseModel;
 import edu.uci.ics.cs122b.test.common.Result;
@@ -7,6 +8,7 @@ import testcases.model.hw3.submodels.BrowseMovieModel;
 import testcases.model.hw3.submodels.MovieModel;
 
 public class BrowseKeywordResponseModel extends ResponseModel {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonProperty("movies")
     private BrowseMovieModel[] movies;
 

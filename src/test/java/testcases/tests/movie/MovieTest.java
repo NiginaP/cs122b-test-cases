@@ -19,34 +19,34 @@ import static org.junit.Assert.assertEquals;
 public class MovieTest {
 
     /*
-    *** Regex used to trim the json param name
-    *  ["]([a-z]|[A-Z]|[_])+["][:] (Simply find and replace and it will trim down almost all white space.)
-    * use:
-    *       find: '["]([a-z]|[A-Z]|[_])+["][:]'
-    *       replace ''
-    * e.g.
-    * {
-    *   "example param": hiya
-    *  }
-    * Becomes
-    * {
-    *       hiya
-    * }
-    *
-    * Regex used to trim white space
-    *  ,\s+] - Trim down almost all white space
-    *   use: find ',\s+'
-    *       replace ','
-    *
-    * e.g.
-    * {
-    *   "param1": "hi sir",
-    *   "param2": 1234,
-    *   "param3": "sup dude"
-    * }
-    * {
-    *   "param1": "hi sir","param2": 1234,"param3": "sup dude"
-    * }
+     *** Regex used to trim the json param name
+     *  ["]([a-z]|[A-Z]|[_])+["][:] (Simply find and replace and it will trim down almost all white space.)
+     * use:
+     *       find: '["]([a-z]|[A-Z]|[_])+["][:]'
+     *       replace ''
+     * e.g.
+     * {
+     *   "example param": hiya
+     *  }
+     * Becomes
+     * {
+     *       hiya
+     * }
+     *
+     * Regex used to trim white space
+     *  ,\s+ - Trim down almost all white space
+     *   use: find ',\s+'
+     *       replace ','
+     *
+     * e.g.
+     * {
+     *   "param1": "hi sir",
+     *   "param2": 1234,
+     *   "param3": "sup dude"
+     * }
+     * {
+     *   "param1": "hi sir","param2": 1234,"param3": "sup dude"
+     * }
      */
 
     //*********************************************
@@ -60,8 +60,8 @@ public class MovieTest {
     {
         Result expectedResult = Result.MOVIES_FOUND;
         ThumbnailModel[] thumbnails = {new ThumbnailModel("tt0007507", "The Vagabond", "/7TjAXT67ubvI0RInvX1WnnJ5m8v.jpg", "/idwJD2LtlHgAAvuZQllEcULQXWc.jpg"),
-                                        new ThumbnailModel("tt0018806","The Crowd","/l1VH0FCTMaeduwO1k78wQ1xBBm3.jpg","/iyGK2tzYaQA87UDMj3VxjoXlT9c.jpg"),
-                                        new ThumbnailModel("tt0019130","The Man Who Laughs","/rZgbJwwLgzxDD1SAdnLw78uDkYg.jpg","/8eVqvmUFRPp7nXrxVVcVYJ5pfbN.jpg")};
+                new ThumbnailModel("tt0018806","The Crowd","/l1VH0FCTMaeduwO1k78wQ1xBBm3.jpg","/iyGK2tzYaQA87UDMj3VxjoXlT9c.jpg"),
+                new ThumbnailModel("tt0019130","The Man Who Laughs","/rZgbJwwLgzxDD1SAdnLw78uDkYg.jpg","/8eVqvmUFRPp7nXrxVVcVYJ5pfbN.jpg")};
         ThumbnailResponseModel expectedModel = new ThumbnailResponseModel(expectedResult, thumbnails);
         String[] movie_ids = {"tt0007507","tt0018806","tt0019130"};
 
@@ -90,7 +90,7 @@ public class MovieTest {
     {
         Result expectedResult = Result.MOVIES_FOUND;
         ThumbnailModel[] thumbnails = {new ThumbnailModel("tt0037303", "The Spider Woman", "/meOq8Q3YVgMRh4Meg7iZZmwGW1s.jpg", "/7SasjHkOK7QpqmRrOi0nqFcMLzf.jpg"),
-                                        new ThumbnailModel("tt0046303", "Shane", "/w7nnWraudThsdq6V38nMAELh7UR.jpg", "/fPCjyrZK1evjm2vocMpsHZ0xFOa.jpg")};
+                new ThumbnailModel("tt0046303", "Shane", "/w7nnWraudThsdq6V38nMAELh7UR.jpg", "/fPCjyrZK1evjm2vocMpsHZ0xFOa.jpg")};
         ThumbnailResponseModel expectedModel = new ThumbnailResponseModel(expectedResult, thumbnails);
         String[] movie_ids = {"tt0037303", "ii123213", "kk123123", "asd12323", "tt0046303"};
 
@@ -126,14 +126,14 @@ public class MovieTest {
     @Test
     public  void validBrowseKeywordDefaultQueryParams()
     {
-        String email = "existing3@existing.com";
+        String email = "ActiveSession@uci.edu";
         String sessionID = "15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2cc";
         String keywords = "sequel,alien invasion";
         Result expectedResult = Result.MOVIES_FOUND;
         BrowseMovieModel[] browseMovieModels = {
                 new BrowseMovieModel("tt4154796",
-                "Avengers: Endgame", 2019, "Anthony Russo", 8.6f,
-                "/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg", "/or06FN3Dka5tukK1e9sl16pB3iy.jpg", false),
+                        "Avengers: Endgame", 2019, "Anthony Russo", 8.6f,
+                        "/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg", "/or06FN3Dka5tukK1e9sl16pB3iy.jpg", false),
                 new BrowseMovieModel("tt0060278",
                         "Daleks' Invasion Earth: 2150 A.D.", 1966, "Gordon Flemyng",6.3f,
                         "/mmKJXRxmb0BkYvKaXqvSDByKQfw.jpg","/dzBpFVOgxwd8G95aOFQxd3PKcdz.jpg",
@@ -159,7 +159,7 @@ public class MovieTest {
     @Test
     public  void validBrowseKeywordQueryParamsDesc()
     {
-        String email = "existing3@existing.com";
+        String email = "ActiveSession@uci.edu";
         String sessionID = "15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2cc";
         String keywords = "sequel,alien invasion";
         Result expectedResult = Result.MOVIES_FOUND;
@@ -188,7 +188,7 @@ public class MovieTest {
     @Test
     public void validBrowseKeywordQueryParamsOrderby_Year_Limit_25_Offset_25_Asc()
     {
-        String email = "existing3@existing.com";
+        String email = "ActiveSession@uci.edu";
         String sessionID = "15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2cc";
         String keywords = "spy";
         Result expectedResult = Result.MOVIES_FOUND;
@@ -217,7 +217,7 @@ public class MovieTest {
                 new BrowseMovieModel("tt1229238","Mission: Impossible - Ghost Protocol",2011,"Brad Bird",6.9f,"/pc7a2qrIkIxzqWGqcexd3mHzIxy.jpg","/s58mMsgIVOFfoXPtwPWJ3hDYpXf.jpg",false),
                 new BrowseMovieModel("tt1340800","Tinker Tailor Soldier Spy",2011,"Tomas Alfredson",6.7f,"/bqpGceqQuHbtnjEqUG9acSYIVIh.jpg","/2N3P730TYXEcNL0BO8WBuMc6yJz.jpg",false),
                 new BrowseMovieModel("tt1074638","Skyfall",2012,"Sam Mendes",7.1f,"/6bjRujKSnCVSrzC1qjmqfAyaiET.jpg","/lQCkPLDxFONmgzrWLvq085v1g2d.jpg",false)
-            };
+        };
         BrowseKeywordResponseModel expectedModel = new BrowseKeywordResponseModel(expectedResult, browseMovieModels);
 
         MultivaluedHashMap<String, Object> headers = new MultivaluedHashMap<>();
@@ -240,7 +240,7 @@ public class MovieTest {
     @Test
     public void validBrowseKeywordQueryParamsLimit_25_Offset_25Asc()
     {
-        String email = "existing3@existing.com";
+        String email = "ActiveSession@uci.edu";
         String sessionID = "15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2cc";
         String keywords = "spy";
         Result expectedResult = Result.MOVIES_FOUND;
@@ -285,6 +285,141 @@ public class MovieTest {
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedModel, response.getEntity());
     }
+
+    @Test
+    public void validBrowseKeyword_Invalid_OrderBy()
+    {
+        String email = "ActiveSession@uci.edu";
+        String sessionID = "15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2cc";
+        String keywords = "crime fighter";
+        Result expectedResult = Result.MOVIES_FOUND;
+        BrowseMovieModel[] browseMovieModels = {    new BrowseMovieModel("tt0118688","Batman & Robin",1997,"Joel Schumacher",4.2f,"/39jbxGwfR4wHBV7apo3JiNdHDHq.jpg","/79AYCcxw3kSKbhGpx1LiqaCAbwo.jpg",false),
+                new BrowseMovieModel("tt0372784","Batman Begins",2005,"Christopher Nolan",7.6f,"/9myrRcegWGGp24mpVfkD4zhUfhi.jpg","/dr6x4GyyegBWtinPBzipY02J2lV.jpg",false),
+                new BrowseMovieModel("tt0103776","Batman Returns",1992,"Tim Burton",6.8f,"/wNIE5dpkiHU2csDRptMutFjAGiV.jpg","/jX5THE1yW3zTdeD9dupcIyQvKiG.jpg",false),
+                new BrowseMovieModel("tt1303828","Defendor",2009,"Peter Stebbings",6.4f,"/11BFmXnLq4HohjRFldxJ7ohadmu.jpg","/bGwWUN9aqglafPmZRNlW3tmspuZ.jpg",false),
+                new BrowseMovieModel("tt0106697","Demolition Man",1993,"Marco Brambilla",6.5f,"/2p5rA1NRoyyAFfzdHl1Ab1RN3qr.jpg","/k0PN3Ho12cGGIVJW7SCS7apLYaP.jpg",false),
+                new BrowseMovieModel("tt1250777","Kick-Ass",2010,"Matthew Vaughn",7.1f,"/ngPkB9K8ZpIjv8HpIC8ExqAfG6H.jpg","/gtfggr5n3ED1neoTqVYmsVCoSS.jpg",false),
+                new BrowseMovieModel("tt0103060","Teenage Mutant Ninja Turtles II: The Secret of the Ooze",1991,"Michael Pressman",6.0f,"/mrO3Nn8BWNWiu6Ql76KM7Fx7vMv.jpg","/HD4LtUw4Ono9tzgwWOhHpHcjkj.jpg",false),
+                new BrowseMovieModel("tt1345836","The Dark Knight and The Seven Dwarves",1957,"Christopher Nolan",20.2f,"/1hRoyzDtpgMU7Dz4JF22RANzQO7.jpg","/1hRoyzDtpgMU7Dz4JF22RANzQO7.jpg",false),
+                new BrowseMovieModel("tt0453556","TMNT",2007,"Kevin Munroe",5.9f,"/lTO0w7gR5iL4d1i8Zj9JnZDDUQx.jpg","/4hGzZ2DAjdu6IjHT7dGfiVatHEu.jpg",false)};
+        BrowseKeywordResponseModel expectedModel = new BrowseKeywordResponseModel(expectedResult, browseMovieModels);
+
+        MultivaluedHashMap<String, Object> headers = new MultivaluedHashMap<>();
+        headers.putSingle("email", email);
+        headers.putSingle("sessionID", sessionID);
+
+        MultivaluedHashMap<String, Object> query = new MultivaluedHashMap<>();
+        query.putSingle("orderby", "flabanana");
+
+        ServiceResponse<BrowseKeywordResponseModel> response = MovieSocket.getBrowseByKeyword(headers, query, keywords);
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedModel, response.getEntity());
+    }
+
+    @Test
+    public void validBrowseKeyword_Invalid_Limit()
+    {
+        String email = "ActiveSession@uci.edu";
+        String sessionID = "15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2cc";
+        String keywords = "judge";
+        Result expectedResult = Result.MOVIES_FOUND;
+        BrowseMovieModel[] browseMovieModels = { new BrowseMovieModel("tt0052561","Anatomy of a Murder",1959,"Otto Preminger",7.9f,"/aFfbSVwzXH5tCi5MQN0idkoFbk0.jpg","/kDFnM2zlHZirR2ItTo56lyrxuAS.jpg",false),
+                new BrowseMovieModel(
+                        "tt0416508","Becoming Jane",2007,"Julian Jarrold",7.2f,"/wf8GI3QtL4IM2645Fm7OqRqXCkH.jpg","/iLNBdoaKzXNhZV4qbhJPkIEfLEg.jpg",false),
+                new BrowseMovieModel(
+                        "tt0075783","Breaker! Breaker!",1977,"Don Hulette",4.5f,"/8lCy8EOtUtl4ieykQcDfhNJCBk.jpg","/tlcagN2rFREGgRm8GyL5ylnoco4.jpg",false),
+                new BrowseMovieModel(
+                        "tt0059014","Carry On Cowboy",1965,"Gerald Thomas",6.4f,"/mrFCc3t8o1xosQ7WrWK7cqI4VfY.jpg","/AtrxYQrFKAUTMdijCPNWZXJQCPc.jpg",false),
+                new BrowseMovieModel(
+                        "tt0115906","Citizen Ruth",1996,"Alexander Payne",6.5f,"/t5gsjvFLUk7haxBDhmVcmLNtpbN.jpg","/mNVR2CPQ98AKmiLy4MrceQkJKHE.jpg",false),
+                new BrowseMovieModel(
+                        "tt0061747","Hang 'em High",1968,"Ted Post",6.8f,"/b9ysOV6lBXY4cZen5AM7Z2r75io.jpg","/gFvRKgCAa1MKlcAKZfoDNdR2dgy.jpg",false),
+                new BrowseMovieModel(
+                        "tt1255919","Holmes & Watson",2018,"Etan Cohen",4.2f,"/5Zvu4SrY3p9qgnITkCn4jAQwKvB.jpg","/orEUlKndjV1rEcWqXbbjegjfv97.jpg",false),
+                new BrowseMovieModel(
+                        "tt1045772","I Love You Phillip Morris",2009,"John Requa",6.4f,"/xImbM4eokn6qqbTAXGCPjMUKGtP.jpg","/qtAuWLGQ7N4PNQ6boZeqqoUY2l9.jpg",false),
+                new BrowseMovieModel(
+                        "tt0113492","Judge Dredd",1995,"Danny Cannon",5.5f,"/mSZADd1N0wWkkNJmwcpYAq93bke.jpg","/r17S4XlQ3Jq5U1KRovFUwU8P4aG.jpg",false),
+                new BrowseMovieModel(
+                        "tt0055031","Judgment at Nuremberg",1961,"Stanley Kramer",8.0f,"/g8yVrnJ72eOt1Xw4uyYBIsBBE2g.jpg","/iu7VMhBma5S94M3wh0fR8cmwgUf.jpg",false
+                )};
+        BrowseKeywordResponseModel expectedModel = new BrowseKeywordResponseModel(expectedResult, browseMovieModels);
+
+        MultivaluedHashMap<String, Object> headers = new MultivaluedHashMap<>();
+        headers.putSingle("email", email);
+        headers.putSingle("sessionID", sessionID);
+
+        MultivaluedHashMap<String, Object> query = new MultivaluedHashMap<>();
+        query.putSingle("limit", "99");
+
+        ServiceResponse<BrowseKeywordResponseModel> response = MovieSocket.getBrowseByKeyword(headers, query, keywords);
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedModel, response.getEntity());
+    }
+
+    @Test
+    public void validBrowseKeyword_keywords_dne()
+    {
+        String email = "ActiveSession@uci.edu";
+        String sessionID = "15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2cc";
+        String keywords = "I am lorde, yah, I am lord,south park";
+        Result expectedResult = Result.MOVIES_NOT_FOUND;
+        BrowseMovieModel[] browseMovieModels = null;
+        BrowseKeywordResponseModel expectedModel = new BrowseKeywordResponseModel(expectedResult, browseMovieModels);
+
+        MultivaluedHashMap<String, Object> headers = new MultivaluedHashMap<>();
+        headers.putSingle("email", email);
+        headers.putSingle("sessionID", sessionID);
+
+        MultivaluedHashMap<String, Object> query = new MultivaluedHashMap<>();
+
+        ServiceResponse<BrowseKeywordResponseModel> response = MovieSocket.getBrowseByKeyword(headers, query, keywords);
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedModel, response.getEntity());
+    }
+
+    /*
+    Test not working for some reason.
+     */
+    /*
+    @Test
+    public void validBrowseKeyword_Invalid_Direction()
+    {
+        String email = "ActiveSession@uci.edu";
+        String sessionID = "15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2cc";
+        String keywords = "cat";
+        Result expectedResult = Result.MOVIES_FOUND;
+        BrowseMovieModel[] browseMovieModels = {
+                new BrowseMovieModel("tt3606888", "A Street Cat Named Bob", 2016, "Roger Spottiswoode", 7.5f, "/f6PEWTJt8nBlAzSuXuG6YvFBAQm.jpg", "/amJU2TxLHytgnd7xyrNZURS6crk.jpg", false),
+                new BrowseMovieModel("tt0074121", "Allegro non troppo", 1976, "Bruno Bozzetto", 7.2f, "/xJ5oOBYmf1HC59PyUckVMV0l4aD.jpg", "/hiB3BxFjJFVJVZHLaYkwTF1F4WN.jpg", false),
+                new BrowseMovieModel("tt0090633", "An American Tail", 1986, "Don Bluth", 6.7f, "/bl42TZnTrT1b9bGcE153ZYWZmDw.jpg", "/glZNfxN4cef0pJeD08xru7ZVWlI.jpg", false),
+                new BrowseMovieModel("tt0106341", "Bad Boy Bubby", 1993, "Rolf de Heer", 7.3f, "/mncWOGmjvtH8PFtePIZ3VfNmgGA.jpg", "/tvipR7aVSsAbdfMlR4sbEqD1Pgd.jpg", false),
+                new BrowseMovieModel("tt0051406", "Bell,Book and Candle", 1958, "Richard Quine", 6.4f, "/FLa6tHBr4P4DLQhQecDtXslPTY.jpg", "/efVJYzeOWAE3z4Usu16RCSheYav.jpg", false),
+                new BrowseMovieModel("tt0054698", "Breakfast at Tiffany's", 1961, "Blake Edwards", 7.7f, "/vABwESShzjlSynkyGjLihTUieMJ.jpg", "/c95lbDwL5WT8PV9DZsdSvRtXKNA.jpg", false),
+                new BrowseMovieModel("tt4595882", "Can You Ever Forgive Me?", 2018, "Marielle Heller", 6.9f, "/dc0FxYIyKfP4drQ7MEl2sHsoD14.jpg", "/hPuZR2bFoV0kuBrA98exWyvTf40.jpg", false),
+                new BrowseMovieModel("tt0088889", "Cat's Eye", 1985, "Lewis Teague", 6.1f, "/mVWufY70kchQ0LSsE2uLg93aEXj.jpg", "/A65sQJbEAAV4wC9QQc0Mn4ZaMZV.jpg", false),
+                new BrowseMovieModel("tt0239395", "Cats & Dogs", 2001, "Lawrence Guterman", 5.2f, "/2GoKwjA0K7b3BnsvBXwm68PkaJk.jpg", "/1RLlzNwnrpMMNFt71OVFAnJp6ww.jpg", false),
+                new BrowseMovieModel("tt0090887", "Critters", 1986, "Stephen Herek", 6.0f, "/dqUw5SO18T8qFs8A0NVq85M5Of3.jpg", "/zLL6nX13AfigvvNQ9GyNXhKVrmg.jpg", false)
+
+                };
+        BrowseKeywordResponseModel expectedModel = new BrowseKeywordResponseModel(expectedResult, browseMovieModels);
+
+        MultivaluedHashMap<String, Object> headers = new MultivaluedHashMap<>();
+        headers.putSingle("email", email);
+        headers.putSingle("sessionID", sessionID);
+
+        MultivaluedHashMap<String, Object> query = new MultivaluedHashMap<>();
+        query.putSingle("direction", "down");
+
+        ServiceResponse<BrowseKeywordResponseModel> response = MovieSocket.getBrowseByKeyword(headers, query, keywords);
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedModel, response.getEntity());
+    }
+        */
 
 
 }
