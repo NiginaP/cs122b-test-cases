@@ -109,10 +109,12 @@ public class MovieSocket {
                                                                       String direction){
         MultivaluedHashMap<String, Object> header = getHeader(session_id);
         MultivaluedHashMap<String, Object> queries = getQueries(title, year, director, genre, hidden, limit, offset, orderby, direction);
-        System.out.println(header.toString());
-        System.out.println(queries.toString());
+        //System.out.println(header.toString());
+        //System.out.println(queries.toString());
 
-        ServiceSocket serviceSocket = SOCKET_FACTORY.createSocket(SEARCH_EP).headers(header).queries(queries);
+        ServiceSocket serviceSocket = SOCKET_FACTORY.createSocket(SEARCH_EP);//.headers(header).queries(queries);
+        serviceSocket = serviceSocket.headers(header);
+        serviceSocket = serviceSocket.queries(queries);
 
         return serviceSocket.get(MovieSearchResponseModel.class);
     }
