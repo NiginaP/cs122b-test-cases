@@ -249,7 +249,7 @@ public class MovieTest {
     public void testNoMovieFound_invalidTitle(){
         Result expectedResult = Result.NO_MOVIES_FOUND;
         MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
-        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"NONEXISTENTMOVIE", 2019, "Joe Russo", "action", false, 10, 0,"title","asc");
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"NONEXISTENTMOVIE", 2019, "Joe Russo", "action", false, null, null, null, null);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResponseModel, response.getEntity());
@@ -259,7 +259,7 @@ public class MovieTest {
     public void testNoMovieFound_invalidYear(){
         Result expectedResult = Result.NO_MOVIES_FOUND;
         MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
-        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", -2019, "Joe Russo", "action", false, 10, 0,"title","asc");
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", -2019, "Joe Russo", "action", false, null, null,null,null);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResponseModel, response.getEntity());
@@ -269,7 +269,7 @@ public class MovieTest {
     public void testNoMovieFound_invalidDirector(){
         Result expectedResult = Result.NO_MOVIES_FOUND;
         MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
-        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "NONEXISTENTDIRECTOR", "action", false, 10, 0,"title","asc");
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "NONEXISTENTDIRECTOR", "action", false, null, null,null,null);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResponseModel, response.getEntity());
@@ -279,7 +279,7 @@ public class MovieTest {
     public void testNoMovieFound_invalidGenre(){
         Result expectedResult = Result.NO_MOVIES_FOUND;
         MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
-        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "NONEXISTENTGENRE", false, 10, 0,"title","asc");
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "NONEXISTENTGENRE", false, null, null,null,null);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResponseModel, response.getEntity());
@@ -289,7 +289,7 @@ public class MovieTest {
     public void testNoMovieFound_invalidLimit(){
         Result expectedResult = Result.NO_MOVIES_FOUND;
         MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
-        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, -10, 0,"title","asc");
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, -10, null,null,null);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResponseModel, response.getEntity());
@@ -299,7 +299,7 @@ public class MovieTest {
     public void testNoMovieFound_invalidOffset(){
         Result expectedResult = Result.NO_MOVIES_FOUND;
         MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
-        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, 10, -10,"title","asc");
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, null, -10, null, null);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResponseModel, response.getEntity());
@@ -309,7 +309,7 @@ public class MovieTest {
     public void testNoMovieFound_invalidOrderby(){
         Result expectedResult = Result.NO_MOVIES_FOUND;
         MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
-        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, 10, -10,"INVALIDORDERBY","asc");
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, null, null,"INVALIDORDERBY",null);
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResponseModel, response.getEntity());
@@ -319,7 +319,7 @@ public class MovieTest {
     public void testNoMovieFound_invalidDirection(){
         Result expectedResult = Result.NO_MOVIES_FOUND;
         MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
-        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, 10, -10,"title","INVALIDDIRECTION");
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, null, null,null,"INVALIDDIRECTION");
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResponseModel, response.getEntity());
