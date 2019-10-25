@@ -17,9 +17,9 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import static org.junit.Assert.assertEquals;
 
 public class MovieTest {
-    private String validSessionID = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
-    private String expiredSessionID = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123124";
-    private String revokedSessionID = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123126";
+    private String validSessionID = "15b99dfdec7e615846abe541b535ab7fb5af17f263e577dfeb4ebd4618d043e9161f3f753afb972a12d775d31568010a77be008b883084b3afa663b11d1cf2cc";
+    //private String expiredSessionID = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123124";
+    //private String revokedSessionID = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123126";
 
     @Test
     public void testMovieFoundSuccessfullyWithAllQueryParamsValid_DefaultLimitOffsetOrderbyDirection(){
@@ -34,7 +34,7 @@ public class MovieTest {
         assertEquals(expectedModel, response.getEntity());
     }
 
-    @Test
+    /*@Test
     public void testNoMovieFound_ExpiredSessionID(){
         Result expectedResult = Result.NO_MOVIES_FOUND;
         MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
@@ -52,7 +52,7 @@ public class MovieTest {
 
         assertEquals(expectedResult.getStatus(), response.getStatus());
         assertEquals(expectedResponseModel, response.getEntity());
-    }
+    }*/
 
     @Test
     public void testMovieFoundSuccessfully_CustomizedLimit(){

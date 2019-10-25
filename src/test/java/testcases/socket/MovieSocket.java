@@ -68,7 +68,7 @@ public class MovieSocket {
 
     public static MultivaluedHashMap<String, Object> getHeader(String session_id){
         MultivaluedHashMap<String, Object> header = new MultivaluedHashMap<>();
-        header.putSingle("email", "hehehe@uci.edu");
+        header.putSingle("email", "ActiveSession@uci.edu");
         header.putSingle("session_id", session_id);//"bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123");
 
         return header;
