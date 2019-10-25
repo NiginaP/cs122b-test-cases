@@ -1,14 +1,23 @@
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL) // Tells Jackson to ignore all fields with value of NULL
 public class Movie {
+    @JsonProperty("movie_id")
     private String movie_id;
+    @JsonProperty("title")
     private String title;
+    @JsonProperty("year")
     private Integer year;
+    @JsonProperty("director")
     private String director;
+    @JsonProperty("rating")
     private Float rating;
+    @JsonProperty("backdrop_path")
     private String backdrop_path;
+    @JsonProperty("poster_path")
     private String poster_path;
+    @JsonProperty("hidden")
     private Boolean hidden;
 
     public Movie() {
