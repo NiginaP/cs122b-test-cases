@@ -17,7 +17,313 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import static org.junit.Assert.assertEquals;
 
 public class MovieTest {
+    private String validSessionID = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123";
+    private String expiredSessionID = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123124";
+    private String revokedSessionID = "bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123126";
 
+    @Test
+    public void testMovieFoundSuccessfullyWithAllQueryParamsValid_DefaultLimitOffsetOrderbyDirection(){
+        Result expectedResult = Result.MOVIES_FOUND;
+        Movie expectedMovie = new Movie("tt4154796","Avengers: Endgame",2019,"Joe Russo",(float)8.6, "/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg", "/or06FN3Dka5tukK1e9sl16pB3iy.jpg", false);
+        Movie[] expectedMovieArray = new Movie[1];
+        expectedMovieArray[0] = expectedMovie;
+        MovieSearchResponseModel expectedModel = new MovieSearchResponseModel(expectedResult, expectedMovieArray);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID, "Avengers: Endgame", 2019, "Joe Russo", "action", false, null, null, null, null);
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedModel, response.getEntity());
+    }
+
+    @Test
+    public void testNoMovieFound_ExpiredSessionID(){
+        Result expectedResult = Result.NO_MOVIES_FOUND;
+        MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.expiredSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, null, null, null, null);
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedResponseModel, response.getEntity());
+    }
+
+    @Test
+    public void testNoMovieFound_RevokedSessionID(){
+        Result expectedResult = Result.NO_MOVIES_FOUND;
+        MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.revokedSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, null, null, null, null);
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedResponseModel, response.getEntity());
+    }
+
+    @Test
+    public void testMovieFoundSuccessfully_CustomizedLimit(){
+        Result expectedResult = Result.MOVIES_FOUND;
+        Movie expectedMovie0 = new Movie("tt7054636","A Madea Family Funeral",2019,"Tyler Perry",(float)5.6, "/piGjUloiaq6qTpaDLisyDyEsx9i.jpg", "/sFvOTUlZrIxCLdmz1fC16wK0lme.jpg", false);
+        Movie expectedMovie1 = new Movie("tt6211976","A Vigilante",2019,"Sarah Daggar-Nickson",(float)4.6, "/kReEky4XRCAq22H5V37kDcNY9dj.jpg", "/avoKZfgBzyBGJsrAr2WQOwZK978.jpg", false);
+        Movie expectedMovie2 = new Movie("tt5215088","A.I. Rising",2019,"Lazar Bodroža",(float)3.7, "/ddQ11EC7tiXJVNNHjGCMMQgJYNz.jpg", "/aXosp6MFBxYi4m6ZmE4u1auReHc.jpg", false);
+        Movie expectedMovie3 = new Movie("tt9562694","Alien Warfare",2019,"Jeremiah Jones",(float)3.2, "/3OjDQWEhvtxBlMtxYVwGxP3isLf.jpg", "/rJOj0T5DyChfECevDg0xpEGznsl.jpg", false);
+        Movie expectedMovie4 = new Movie("tt0437086","Alita: Battle Angel",2019,"Robert Rodriguez",(float)6.6, "/aQXTw3wIWuFMy0beXRiZ1xVKtcf.jpg", "/xRWht48C2V8XNfzvPehyClOvDni.jpg", false);
+        Movie expectedMovie5 = new Movie("tt9770590","Amy Schumer: Growing",2019,"Amy Schumer",(float)6.2, "/znV9hAFBVH5dl49RIGy1hHsQUs7.jpg", "/zZJYPkiCI0PFv8tUc8qViyC2oKx.jpg", false);
+        Movie expectedMovie6 = new Movie("tt9817308","Antoine Griezmann : The Making of a Legend",2019,"Amy Schumer",(float)7.6, "/jWaBxVNWYqec9Ye8MOZYTUPRke5.jpg", "/mSqJzD857y3MSxHgW6ItZMoSUfa.jpg", false);
+        Movie expectedMovie7 = new Movie("tt4154796","Avengers: Endgame",2019,"Anthony Russo",(float)8.6, "/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg", "/or06FN3Dka5tukK1e9sl16pB3iy.jpg", false);
+        Movie expectedMovie8 = new Movie("tt7208564","Blood Fest",2019,"Owen Egerton",(float)5.7, "/e4eeJjON17Cv7Cio3QEyC4xv5uZ.jpg", "/iy6mJ8EvVQrrSrSblK7GRYFq1Mp.jpg", false);
+        Movie expectedMovie9 = new Movie("tt8425058","Brexit: The Uncivil War",2019,"Toby Haynes",(float)6.6, "/vRIGYfTd6Sd6B1y8j5esfW4pXn2.jpg", "/kWgIRP33JPKfMbsSUOPFCZenQJe.jpg", false);
+        Movie expectedMovie10 = new Movie("tt4154664","Captain Marvel",2019,"Anna Boden",(float)7.1, "/w2PMyoyLU22YvrGK3smVM9fW1jj.jpg", "/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", false);
+        Movie expectedMovie11 = new Movie("tt5968394","Captive State",2019,"Rupert Wyatt",(float)4.7, "/6IZ84KFhNpy6htsJmwFVuK30pyp.jpg", "/wB24P3QGGoAkEyBzTEb5s4lFY7N.jpg", false);
+        Movie expectedMovie12 = new Movie("tt2677722","City of Lies",2019,"Brad Furman",(float)6.3, "/gebZygvoWdmXr6YQHieCBpOxm4m.jpg", "/pK7IYQdtdWtMDBJZfMqDxgMjXEt.jpg", false);
+        Movie expectedMovie13 = new Movie("tt5719748","Cold Pursuit",2019,"Hans Petter Moland",(float)5.2, "/aiM3XxYE2JvW1vJ4AC6cI1RjAoT.jpg", "/otK0H9H1w3JVGJjad5Kzx3Z9kt2.jpg", false);
+        Movie expectedMovie14 = new Movie("tt4457344","Dave Made a Maze",2019,"Bill Watterson",(float)0, "/sdV2CyNro8RnFx0NFbe7OIWp1v0.jpg", "/7Z5sEOC8Y7bdrg7FmIfNGkNniyX.jpg", false);
+        Movie expectedMovie15 = new Movie("tt6491178","Dragged Across Concrete",2019,"S. Craig Zahler",(float)6.8, "/sZUbg9K8zGiUmeVYSlUNelVcuzM.jpg", "/fVG4a27ImyPS4vvNMjCtan3QhDl.jpg", false);
+        Movie expectedMovie16 = new Movie("tt2481498","Extremely Wicked, Shockingly Evil and Vile",2019,"Joe Berlinger",(float)7.1, "/5yXNf13ly6kFQSbI5BZRQlDhCib.jpg", "/zSuJ3r5zr5T26tTxyygHhgkUAIM.jpg", false);
+        Movie expectedMovie17 = new Movie("tt6513120","Fighting with My Family",2019,"Stephen Merchant",(float)6.5, "/mYKP6qcDUimVMAHQWLOuDHjO19S.jpg", "/3TZCBAdKQiz0cGKGEjZiyZUA01O.jpg", false);
+        Movie expectedMovie18 = new Movie("tt6472976","Five Feet Apart",2019,"Justin Baldoni",(float)8.2, "/d7wa3VpUpKDQ7GG9EMw8zSJCFoI.jpg", "/kreTuJBkUjVWePRfhHZuYfhNE1T.jpg", false);
+        Movie expectedMovie19 = new Movie("tt7843600","Fyre Fraud",2019,"Julia Willoughby Nason",(float)6.4, "/6XMByhD5H93RquXHnmcbrOogqUs.jpg", "/jeeHE4gDErwulQ9UJjHeLAzV1TG.jpg", false);
+        Movie expectedMovie20 = new Movie("tt6902696","Gloria Bell",2019,"Sebastián Lelio",(float)5.9, "/547fjELV7imMeSJrmkK2FeVHjvf.jpg", "/ua34uW49DfpFyV61aT3l7SKN3TV.jpg", false);
+        Movie expectedMovie21 = new Movie("tt8858104","Guava Island",2019,"Hiro Murai",(float)7.4, "/tf2hJletuXDjqBrx5z007AYFhFe.jpg", "/noE2O4XaRSrNZ75MUShaQD0pFN0.jpg", false);
+        Movie expectedMovie22 = new Movie("tt8155288","Happy Death Day 2U",2019,"Christopher Landon",(float)6.1, "/v99NrmuSYn4HGwwpHWEkMVSeAL3.jpg", "/4tdnePOkOOzwuGPEOAHp8UA4vqx.jpg", false);
+        Movie expectedMovie23 = new Movie("tt8128188","High Flying Bird",2019,"Steven Soderbergh",(float)5.6, "/4t3ELPWvb7afiY9dFUqIdZIlTbT.jpg", "/ccE21xixa1zhkGtWDr4n8ReOp40.jpg", false);
+        Movie expectedMovie24 = new Movie("tt5461944","Hotel Mumbai",2019,"Anthony Maras",(float)8, "/2WgDlJnkc1klLr1WuCuUTzzmNne.jpg", "/4UM3WBgWvAXi9CaBXJjwAMnEY05.jpg", false);
+
+        Movie[] expectedMovieArray = new Movie[25];
+        expectedMovieArray[0] = expectedMovie0;
+        expectedMovieArray[1] = expectedMovie1;
+        expectedMovieArray[2] = expectedMovie2;
+        expectedMovieArray[3] = expectedMovie3;
+        expectedMovieArray[4] = expectedMovie4;
+        expectedMovieArray[5] = expectedMovie5;
+        expectedMovieArray[6] = expectedMovie6;
+        expectedMovieArray[7] = expectedMovie7;
+        expectedMovieArray[8] = expectedMovie8;
+        expectedMovieArray[9] = expectedMovie9;
+        expectedMovieArray[10] = expectedMovie10;
+        expectedMovieArray[11] = expectedMovie11;
+        expectedMovieArray[12] = expectedMovie12;
+        expectedMovieArray[13] = expectedMovie13;
+        expectedMovieArray[14] = expectedMovie14;
+        expectedMovieArray[15] = expectedMovie15;
+        expectedMovieArray[16] = expectedMovie16;
+        expectedMovieArray[17] = expectedMovie17;
+        expectedMovieArray[18] = expectedMovie18;
+        expectedMovieArray[19] = expectedMovie19;
+        expectedMovieArray[20] = expectedMovie20;
+        expectedMovieArray[21] = expectedMovie21;
+        expectedMovieArray[22] = expectedMovie22;
+        expectedMovieArray[23] = expectedMovie23;
+        expectedMovieArray[24] = expectedMovie24;
+        MovieSearchResponseModel expectedModel = new MovieSearchResponseModel(expectedResult, expectedMovieArray);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,null, 2019, null, null, false, 25, null, null, null);
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedModel, response.getEntity());
+    }
+
+    @Test
+    public void testMovieFoundSuccessfully_CustomizedOffset(){
+        Result expectedResult = Result.MOVIES_FOUND;
+        Movie expectedMovie0 = new Movie("tt6211976","A Vigilante",2019,"Sarah Daggar-Nickson",(float)4.6, "/kReEky4XRCAq22H5V37kDcNY9dj.jpg", "/avoKZfgBzyBGJsrAr2WQOwZK978.jpg", false);
+        Movie expectedMovie1 = new Movie("tt5215088","A.I. Rising",2019,"Lazar Bodroža",(float)3.7, "/ddQ11EC7tiXJVNNHjGCMMQgJYNz.jpg", "/aXosp6MFBxYi4m6ZmE4u1auReHc.jpg", false);
+        Movie expectedMovie2 = new Movie("tt9562694","Alien Warfare",2019,"Jeremiah Jones",(float)3.2, "/3OjDQWEhvtxBlMtxYVwGxP3isLf.jpg", "/rJOj0T5DyChfECevDg0xpEGznsl.jpg", false);
+        Movie expectedMovie3 = new Movie("tt0437086","Alita: Battle Angel",2019,"Robert Rodriguez",(float)6.6, "/aQXTw3wIWuFMy0beXRiZ1xVKtcf.jpg", "/xRWht48C2V8XNfzvPehyClOvDni.jpg", false);
+        Movie expectedMovie4 = new Movie("tt9770590","Amy Schumer: Growing",2019,"Amy Schumer",(float)6.2, "/znV9hAFBVH5dl49RIGy1hHsQUs7.jpg", "/zZJYPkiCI0PFv8tUc8qViyC2oKx.jpg", false);
+        Movie expectedMovie5 = new Movie("tt9817308","Antoine Griezmann : The Making of a Legend",2019,"Amy Schumer",(float)7.6, "/jWaBxVNWYqec9Ye8MOZYTUPRke5.jpg", "/mSqJzD857y3MSxHgW6ItZMoSUfa.jpg", false);
+        Movie expectedMovie6 = new Movie("tt4154796","Avengers: Endgame",2019,"Anthony Russo",(float)8.6, "/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg", "/or06FN3Dka5tukK1e9sl16pB3iy.jpg", false);
+        Movie expectedMovie7 = new Movie("tt7208564","Blood Fest",2019,"Owen Egerton",(float)5.7, "/e4eeJjON17Cv7Cio3QEyC4xv5uZ.jpg", "/iy6mJ8EvVQrrSrSblK7GRYFq1Mp.jpg", false);
+        Movie expectedMovie8 = new Movie("tt8425058","Brexit: The Uncivil War",2019,"Toby Haynes",(float)6.6, "/vRIGYfTd6Sd6B1y8j5esfW4pXn2.jpg", "/kWgIRP33JPKfMbsSUOPFCZenQJe.jpg", false);
+        Movie expectedMovie9 = new Movie("tt4154664","Captain Marvel",2019,"Anna Boden",(float)7.1, "/w2PMyoyLU22YvrGK3smVM9fW1jj.jpg", "/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", false);
+
+        Movie[] expectedMovieArray = new Movie[25];
+        expectedMovieArray[0] = expectedMovie0;
+        expectedMovieArray[1] = expectedMovie1;
+        expectedMovieArray[2] = expectedMovie2;
+        expectedMovieArray[3] = expectedMovie3;
+        expectedMovieArray[4] = expectedMovie4;
+        expectedMovieArray[5] = expectedMovie5;
+        expectedMovieArray[6] = expectedMovie6;
+        expectedMovieArray[7] = expectedMovie7;
+        expectedMovieArray[8] = expectedMovie8;
+        expectedMovieArray[9] = expectedMovie9;
+        MovieSearchResponseModel expectedModel = new MovieSearchResponseModel(expectedResult, expectedMovieArray);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,null, 2019, null, null, false, null, 1, null, null);
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedModel, response.getEntity());
+    }
+
+    @Test
+    public void testMovieFoundSuccessfully_CustomizedOrderbyRating(){
+        Result expectedResult = Result.MOVIES_FOUND;
+        Movie expectedMovie0 = new Movie("tt4457344","Dave Made a Maze",2019,"Bill Watterson",(float)0, "/sdV2CyNro8RnFx0NFbe7OIWp1v0.jpg", "/7Z5sEOC8Y7bdrg7FmIfNGkNniyX.jpg", false);
+        Movie expectedMovie1 = new Movie("tt9562694","Alien Warfare",2019,"Jeremiah Jones",(float)3.2, "/3OjDQWEhvtxBlMtxYVwGxP3isLf.jpg", "/rJOj0T5DyChfECevDg0xpEGznsl.jpg", false);
+        Movie expectedMovie2 = new Movie("tt5215088","A.I. Rising",2019,"Lazar Bodroža",(float)3.7, "/ddQ11EC7tiXJVNNHjGCMMQgJYNz.jpg", "/aXosp6MFBxYi4m6ZmE4u1auReHc.jpg", false);
+        Movie expectedMovie3 = new Movie("tt6211976","A Vigilante",2019,"Sarah Daggar-Nickson",(float)4.6, "/kReEky4XRCAq22H5V37kDcNY9dj.jpg", "/avoKZfgBzyBGJsrAr2WQOwZK978.jpg", false);
+        Movie expectedMovie4 = new Movie("tt5968394","Captive State",2019,"Rupert Wyatt",(float)4.7, "/6IZ84KFhNpy6htsJmwFVuK30pyp.jpg", "/wB24P3QGGoAkEyBzTEb5s4lFY7N.jpg", false);
+        Movie expectedMovie5 = new Movie("tt3256226","IO",2019,"Jonathan Helpert",(float)4.8, "/tirhxzSR6g1A9Iayo2lpYW4luUF.jpg", "/utH781EwjzzXQC6fZUO3cw8L5Ht.jpg", false);
+        Movie expectedMovie6 = new Movie("tt5719748","Cold Pursuit",2019,"Hans Petter Moland",(float)5.2, "/ckNp6LPhp1roR8dVI16q5u3LUMg.jpg", "/3rViQPcrWthMNecp5XnkKev6BzW.jpg", false);
+        Movie expectedMovie7 = new Movie("tt7043012","Velvet Buzzsaw",2019,"Dan Gilroy",(float)5.3, "/aiM3XxYE2JvW1vJ4AC6cI1RjAoT.jpg", "/otK0H9H1w3JVGJjad5Kzx3Z9kt2.jpg", false);
+        Movie expectedMovie8 = new Movie("tt4913966","The Curse of La Llorona",2019,"Michael Chaves",(float)5.5, "/u2vGggeMPAkhEtD7bYGfeThsQiM.jpg", "/jhZlXSnFUpNiLAek9EkPrtLEWQI.jpg", false);
+        Movie expectedMovie9 = new Movie("tt7054636","A Madea Family Funeral",2019,"Tyler Perry",(float)5.6, "/piGjUloiaq6qTpaDLisyDyEsx9i.jpg", "/sFvOTUlZrIxCLdmz1fC16wK0lme.jpg", false);
+
+
+        Movie[] expectedMovieArray = new Movie[10];
+        expectedMovieArray[0] = expectedMovie0;
+        expectedMovieArray[1] = expectedMovie1;
+        expectedMovieArray[2] = expectedMovie2;
+        expectedMovieArray[3] = expectedMovie3;
+        expectedMovieArray[4] = expectedMovie4;
+        expectedMovieArray[5] = expectedMovie5;
+        expectedMovieArray[6] = expectedMovie6;
+        expectedMovieArray[7] = expectedMovie7;
+        expectedMovieArray[8] = expectedMovie8;
+        expectedMovieArray[9] = expectedMovie9;
+        MovieSearchResponseModel expectedModel = new MovieSearchResponseModel(expectedResult, expectedMovieArray);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,null, 2019, null, null, false, null, null, "rating", null);
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedModel, response.getEntity());
+    }
+
+    @Test
+    public void testMovieFoundSuccessfully_CustomizedOrderbyYear(){
+        Result expectedResult = Result.MOVIES_FOUND;
+        Movie expectedMovie0 = new Movie("tt0015175","Die Nibelungen: Siegfried",1924,"Fritz Lang",(float)7.8, "/cylOPTppYighfnGL6Wy8cal1Gq9.jpg", "/hyq7gPo3LjMs0hap1xvzrH5gxeA.jpg", false);
+        Movie expectedMovie1 = new Movie("tt0015864","The Gold Rush",1925,"Charlie Chaplin",(float)8, "/m5eYy0SY33hLnxWAdrILJddTi49.jpg", "/eQRFo1qwRREYwj47Yoe1PisgOle.jpg", false);
+        Movie expectedMovie2 = new Movie("tt0016641","Ben-Hur: A Tale of the Christ",1925,"Rex Ingram",(float)7.6, "/iQCR4FvqSgf5FiroPRa9VjCtA8y.jpg", "/4EbIbp9Kgnj0m0eMEfQlX3fyDHZ.jpg", false);
+        Movie expectedMovie3 = new Movie("tt0020691", "The Big Trail", 1930, "Raoul Walsh", (float)6.8, "/tCbCbYdE12UazKLJzJTZwAY86pv.jpg", "/6uvnyapOMclNz2Uop7bcxpYiP3b.jpg", false);
+        Movie expectedMovie4 = new Movie("tt0024188", "Island of Lost Souls", 1932, "Erle C. Kenton", (float)7.1, "/yw4kfAtIBSI2WJy0ZHgBQe3msMb.jpg", "/g7K7r1FojQC52YHxfmuXgwYBq5Q.jpg", false);
+        Movie expectedMovie5 = new Movie("tt0023238", "The Most Dangerous Game", 1932, "Ernest B. Schoedsack", (float)7.2, "/aV2b3tOQYZBaEcCeXxbRaEaP6W1.jpg", "/3aNlOIFlGOnIzxqvAWpgm5Sly1H.jpg", false);
+        Movie expectedMovie6 = new Movie("tt0023458", "Shanghai Express", 1932, "Josef von Sternberg", (float)6.8, "/jY7Yz0YYwXZ7ydPbW8ICVcgere5.jpg", "/ausvToB221szRJkSN6lWcS9lfaS.jpg", false);
+        Movie expectedMovie7 = new Movie("tt0023551", "Tarzan the Ape Man", 1932, "W.S. Van Dyke", (float)6.5, "/gPeJKuApv6tuHbN3oPYxqZ1bj4g.jpg", "/sqtdNAktAI3p1iXmaEooaHjMmWd.jpg", false);
+        Movie expectedMovie8 = new Movie("tt0024593", "The Son of Kong", 1933, "Ernest B. Schoedsack", (float)5.5, "/xj4WIDZ43ADgza3OHxnPoCS4xOl.jpg", "/p1VI7gFogYD39pRUz901G8idWmZ.jpg", false);
+        Movie expectedMovie9 = new Movie("tt0025862", "Tarzan and His Mate", 1934, "Cedric Gibbons", (float)6.5, "/i2TPTgROdJVfxvjIdcTevrHKJFJ.jpg", "/tAPMmaeh66IKy4njzd8WKRbMbnw.jpg", false);
+
+        Movie[] expectedMovieArray = new Movie[3];
+        expectedMovieArray[0] = expectedMovie0;
+        expectedMovieArray[1] = expectedMovie1;
+        expectedMovieArray[2] = expectedMovie2;
+        expectedMovieArray[3] = expectedMovie3;
+        expectedMovieArray[4] = expectedMovie4;
+        expectedMovieArray[5] = expectedMovie5;
+        expectedMovieArray[6] = expectedMovie6;
+        expectedMovieArray[7] = expectedMovie7;
+        expectedMovieArray[8] = expectedMovie8;
+        expectedMovieArray[9] = expectedMovie9;
+        MovieSearchResponseModel expectedModel = new MovieSearchResponseModel(expectedResult, expectedMovieArray);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,null, null, null, "Adventure", false, null, null, "year", null);
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedModel, response.getEntity());
+    }
+
+    @Test
+    public void testMovieFoundSuccessfully_CustomizedDirection(){
+        Result expectedResult = Result.MOVIES_FOUND;
+        Movie expectedMovie0 = new Movie("tt0080180","Zulu Dawn",1979,"Douglas Hickox",(float)6, "/Wm0gjfAOi1kOMGILTZJJk5krPU.jpg", "/57Yr5Es4dk2udRY2R9iDVjSkk6q.jpg", false);
+        Movie expectedMovie1 = new Movie("tt2948356","Zootopia",2016,"Rich Moore",(float)7.7, "/mhdeE1yShHTaDbJVdWyTlzFvNkr.jpg", "/sM33SANp9z6rXW8Itn7NnG1GOEs.jpg", false);
+        Movie expectedMovie2 = new Movie("tt0120550","Zeus & Roxanne",1997,"George T. Miller",(float)5.1, "/kcs2Vv4UvyjWOpcI2llWoFwve6L.jpg", "/JsEEn2fSLhHQ0LHoPHJM7M7U8w.jpg", false);
+        Movie expectedMovie3 = new Movie("tt0379060","Zenon: Z3",2004,"Steve Rash",(float)5.1, "/4I1tnwaW0hfZotli4hE9e9aMTg7.jpg", "/oh3C0CtoLTRTGYpdQtsWG34VoAE.jpg", false);
+        Movie expectedMovie4 = new Movie("tt0271271","Zenon: The Zequel",2001,"Manny Coto",(float)5.2, "/jLItUv8aWHDKEapS9fmimv9NINP.jpg", "/uiRIpiOf6PQPVTPxhBIvjgYxX8n.jpg", false);
+        Movie expectedMovie5 = new Movie("tt0186726","Zenon: Girl of the 21st Century",1999,"Kenneth Johnson",(float)5.8, "/fnEe7htqZyP24C5Udq0DofeKSXn.jpg", "/aaasI95hIbBnl6i85hjHY6suM9d.jpg", false);
+        Movie expectedMovie6 = new Movie("tt0406375","Zathura: A Space Adventure",2005,"Jon Favreau",(float)6.2, "/jzcOVeydNYF4hX0OiNftWC8QZJz.jpg", "/amqgIuISRBt8tsZM6cTT6gO9WLR.jpg", false);
+        Movie expectedMovie7 = new Movie("tt1488181","Zambezia",2012,"Wayne Thornley",(float)5.5, "/5xPTAstcnDpZWmai8mocGUHChKF.jpg", "/dLZTSTe4czdJ3Fr6vwy8XwVzLF5.jpg", false);
+        Movie expectedMovie8 = new Movie("tt0096487","Young Guns",1988,"Christopher Cain",(float)6.7, "/llVClV0i94ELiR9dO47fJkPwbq6.jpg", "/wkGbwWHIM23BkmMBm7GQHaCZan8.jpg", false);
+        Movie expectedMovie9 = new Movie("tt0318850","Young Black Stallion",2003,"Simon Wincer",(float)6.1, "/vxPiyoGNSTHUINTlFxTVo6ZLegj.jpg", "/6QRfEgONo5MYgDEDTipIcetnHsO.jpg", false);
+
+        Movie[] expectedMovieArray = new Movie[3];
+        expectedMovieArray[0] = expectedMovie0;
+        expectedMovieArray[1] = expectedMovie1;
+        expectedMovieArray[2] = expectedMovie2;
+        expectedMovieArray[3] = expectedMovie3;
+        expectedMovieArray[4] = expectedMovie4;
+        expectedMovieArray[5] = expectedMovie5;
+        expectedMovieArray[6] = expectedMovie6;
+        expectedMovieArray[7] = expectedMovie7;
+        expectedMovieArray[8] = expectedMovie8;
+        expectedMovieArray[9] = expectedMovie9;
+        MovieSearchResponseModel expectedModel = new MovieSearchResponseModel(expectedResult, expectedMovieArray);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,null, null, null, "Adventure", false, null, null, null, "desc");
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedModel, response.getEntity());
+    }
+
+    @Test
+    public void testNoMovieFound_invalidTitle(){
+        Result expectedResult = Result.NO_MOVIES_FOUND;
+        MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"NONEXISTENTMOVIE", 2019, "Joe Russo", "action", false, 10, 0,"title","asc");
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedResponseModel, response.getEntity());
+    }
+
+    @Test
+    public void testNoMovieFound_invalidYear(){
+        Result expectedResult = Result.NO_MOVIES_FOUND;
+        MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", -2019, "Joe Russo", "action", false, 10, 0,"title","asc");
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedResponseModel, response.getEntity());
+    }
+
+    @Test
+    public void testNoMovieFound_invalidDirector(){
+        Result expectedResult = Result.NO_MOVIES_FOUND;
+        MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "NONEXISTENTDIRECTOR", "action", false, 10, 0,"title","asc");
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedResponseModel, response.getEntity());
+    }
+
+    @Test
+    public void testNoMovieFound_invalidGenre(){
+        Result expectedResult = Result.NO_MOVIES_FOUND;
+        MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "NONEXISTENTGENRE", false, 10, 0,"title","asc");
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedResponseModel, response.getEntity());
+    }
+
+    @Test
+    public void testNoMovieFound_invalidLimit(){
+        Result expectedResult = Result.NO_MOVIES_FOUND;
+        MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, -10, 0,"title","asc");
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedResponseModel, response.getEntity());
+    }
+
+    @Test
+    public void testNoMovieFound_invalidOffset(){
+        Result expectedResult = Result.NO_MOVIES_FOUND;
+        MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, 10, -10,"title","asc");
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedResponseModel, response.getEntity());
+    }
+
+    @Test
+    public void testNoMovieFound_invalidOrderby(){
+        Result expectedResult = Result.NO_MOVIES_FOUND;
+        MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, 10, -10,"INVALIDORDERBY","asc");
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedResponseModel, response.getEntity());
+    }
+
+    @Test
+    public void testNoMovieFound_invalidDirection(){
+        Result expectedResult = Result.NO_MOVIES_FOUND;
+        MovieSearchResponseModel expectedResponseModel = new MovieSearchResponseModel(expectedResult, null);
+        ServiceResponse<MovieSearchResponseModel> response = MovieSearch.getSearch(this.validSessionID,"Avengers: Endgame", 2019, "Joe Russo", "action", false, 10, -10,"title","INVALIDDIRECTION");
+
+        assertEquals(expectedResult.getStatus(), response.getStatus());
+        assertEquals(expectedResponseModel, response.getEntity());
+    }
     /*
      *** Regex used to trim the json param name
      *  ["]([a-z]|[A-Z]|[_])+["][:] (Simply find and replace and it will trim down almost all white space.)
