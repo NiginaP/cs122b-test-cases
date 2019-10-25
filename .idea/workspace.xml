@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2635d01a-dc85-4724-8fce-8a0c6aaece63" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/java/testcases/tests/movie/MovieTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/testcases/tests/movie/MovieTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="2635d01a-dc85-4724-8fce-8a0c6aaece63" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/testcases/tests/movie/MovieTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="378" lean-forward="true" selection-start-line="378" selection-end-line="378" />
+            <state relative-caret-position="684">
+              <caret line="383" column="122" selection-start-line="383" selection-start-column="122" selection-end-line="383" selection-end-column="122" />
             </state>
           </provider>
         </entry>
@@ -82,7 +80,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="1660" />
     <option name="width" value="2195" />
     <option name="height" value="2098" />
@@ -221,15 +219,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1572035480436</updated>
-      <workItem from="1572035482032" duration="4143000" />
+      <workItem from="1572035482032" duration="4662000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4143000" />
+    <option name="totallyTimeSpent" value="4662000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="664" y="0" width="878" height="839" extended-state="0" />
+    <frame x="664" y="0" width="878" height="839" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
@@ -242,7 +240,7 @@
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" weight="0.32960895" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.32863188" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -287,8 +285,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/testcases/tests/movie/MovieTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="378" lean-forward="true" selection-start-line="378" selection-end-line="378" />
+        <state relative-caret-position="684">
+          <caret line="383" column="122" selection-start-line="383" selection-start-column="122" selection-end-line="383" selection-end-column="122" />
         </state>
       </provider>
     </entry>
