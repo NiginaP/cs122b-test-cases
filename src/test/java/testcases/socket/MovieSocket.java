@@ -8,6 +8,7 @@ import testcases.model.hw2.response.LoginResponseModel;
 import testcases.model.hw3.request.BrowseKeywordRequestModel;
 import testcases.model.hw3.request.ThumbnailRequestModel;
 import testcases.model.hw3.response.BrowseKeywordResponseModel;
+import testcases.model.hw3.response.MovieSearchResponseModel;
 import testcases.model.hw3.response.ThumbnailResponseModel;
 
 import javax.ws.rs.core.MultivaluedHashMap;
@@ -66,9 +67,9 @@ public class MovieSocket {
         return serviceSocket.get(BrowseKeywordResponseModel.class);
     }
 
-    public static MultivaluedHashMap<String, Object> getHeader(String session_id){
+    public static MultivaluedHashMap<String, Object> getHeader(String email, String session_id){
         MultivaluedHashMap<String, Object> header = new MultivaluedHashMap<>();
-        header.putSingle("email", "ActiveSession@uci.edu");
+        header.putSingle("email", email);
         header.putSingle("session_id", session_id);//"bbbbbbbbbbbbbbssjkbbbbbbbbbbbbssssssjasjdasdkasd1312313123123123");
 
         return header;
@@ -97,7 +98,8 @@ public class MovieSocket {
         return queries;
     }
 
-    public static ServiceResponse<MovieSearchResponseModel> getSearch(String session_id,
+    public static ServiceResponse<MovieSearchResponseModel> getSearch(String email,
+                                                                      String session_id,
                                                                       String title,
                                                                       Integer year,
                                                                       String director,
@@ -107,12 +109,12 @@ public class MovieSocket {
                                                                       Integer offset,
                                                                       String orderby,
                                                                       String direction){
-        MultivaluedHashMap<String, Object> header = getHeader(session_id);
+        MultivaluedHashMap<String, Object> header = getHeader(email,session_id);
         MultivaluedHashMap<String, Object> queries = getQueries(title, year, director, genre, hidden, limit, offset, orderby, direction);
         //System.out.println(header.toString());
         //System.out.println(queries.toString());
 
-        ServiceSocket serviceSocket = SOCKET_FACTORY.createSocket(SEARCH_EP);//.headers(header).queries(queries);
+        ServiceSocket serviceSocket = SOCKET_FACTORY.createSocket(MOVIES_SEARCH_EP);//.headers(header).queries(queries);
         serviceSocket = serviceSocket.headers(header);
         serviceSocket = serviceSocket.queries(queries);
 

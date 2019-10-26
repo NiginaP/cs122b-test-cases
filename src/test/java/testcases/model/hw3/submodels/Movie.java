@@ -1,3 +1,5 @@
+package testcases.model.hw3.submodels;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
